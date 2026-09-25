@@ -1,0 +1,47 @@
+# Knowledge base initialization configuration file, used to initialize knowledge bases and embedding models.
+# This file is only used during initialization. Subsequent modifications can be made directly in the database.
+
+# LLM model configuration
+LLM_MODELS:
+  - name: "meta.llama3-70b-instruct-v1:0"   # Meta Llama 3 70B on AWS Bedrock
+    deployment_type: "cloud"
+    category: "llm"
+    aws_region_name: "us-east-1"            
+    description: "Meta Llama 3 70B Instruct model via AWS Bedrock for text generation"
+    temperature: 0.7
+    max_tokens: 2048                        
+
+# Embedding model configuration
+EMBEDDING_MODELS:
+  - name: "amazon.titan-embed-text-v2:0"    # AWS Bedrock Model ID
+    deployment_type: "cloud"                
+    category: "embedding"
+    aws_region_name: "us-east-1"
+    dimension: 1024                         # Vector dimension
+    description: "AWS Bedrock Titan Text Embeddings v2 for vector generation"
+
+# Knowledge base configuration
+KNOWLEDGE_BASES:
+  # MySQL knowledge base
+  - kb_name: "mysql_knowledge"
+    db_type: "mysql"
+    kb_info: "MySQL数据库知识库，包含MySQL的关键字、函数、操作符等信息"
+    embedding_model: "amazon.titan-embed-text-v2:0" 
+    knowledge_files:
+      - "../data/processed_document/mysql_8_kb.json"
+
+  # PostgreSQL knowledge base  
+  - kb_name: "postgresql_knowledge"
+    db_type: "postgresql"
+    kb_info: "PostgreSQL数据库知识库，包含PostgreSQL的关键字、函数、操作符等信息"
+    embedding_model: "amazon.titan-embed-text-v2:0" 
+    knowledge_files:
+      - "../data/processed_document/pg_14_kb.json"
+
+  # Oracle knowledge base
+  - kb_name: "oracle_knowledge"
+    db_type: "oracle"
+    kb_info: "Oracle 数据库知识库，包含Oracle的关键字、函数、操作符等信息"
+    embedding_model: "amazon.titan-embed-text-v2:0" 
+    knowledge_files:
+      - "../data/processed_document/oracle_11_kb.json"
