@@ -1,4 +1,4 @@
-# TODO: 优化掉，用户自己填
+# TODO: clean this up, let the user fill it in themselves
 
 TOP_K = 1
 CHUNK_SIZE = 250

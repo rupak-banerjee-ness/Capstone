@@ -13,7 +13,7 @@ bp = Blueprint("file", __name__, url_prefix='/api/file')
 @route(bp, '/test', methods=["GET"])
 def test():
     """
-    测试接口
+    Test endpoint
     :return:
     """
     res = ResMsg()
@@ -25,19 +25,19 @@ def test():
 @route(bp, '/upload_file', methods=["POST"])
 def upload_file():
     """
-    文件上传接口
+    File upload endpoint
     :return:
     """
     res = ResMsg()
     file = request.files.get('file', None)
-    print("===已经接收到文件")
+    print("===File received")
     if not file:
         res.update(code=ResponseCode.InvalidParameter)
         return res.data
 
-    print("===保存文件")
+    print("===Saving file")
     result = process_uploaded_file(file)
-    print("===保存文件成功")
+    print("===File saved successfully")
     res.update(data=result)
     return res.data
 

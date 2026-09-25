@@ -10,23 +10,23 @@ def read_yaml(config_name, config_path):
     config_path: configuration file path
     """
     if config_name and config_path:
-        # 首先尝试直接打开指定路径
+        # first try opening the specified path directly
         try:
             with open(config_path, 'r', encoding='utf-8') as f:
                 conf = yaml.safe_load(f.read())
         except FileNotFoundError:
-            # 如果找不到文件，尝试从包内读取
+            # if the file can't be found, try reading it from within the package
             try:
-                # 获取包的安装路径
+                # get the package's install path
                 package_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-                # 构建相对于包的配置文件路径
+                # build the config file path relative to the package
                 relative_path = os.path.join(package_path, 'config', 'config.yaml')
                 
                 with open(relative_path, 'r', encoding='utf-8') as f:
                     conf = yaml.safe_load(f.read())
-                print(f"使用包内配置文件: {relative_path}")
+                print(f"Using in-package config file: {relative_path}")
             except FileNotFoundError:
-                raise FileNotFoundError(f"无法找到配置文件: {config_path} 或包内配置")
+                raise FileNotFoundError(f"Could not find config file: {config_path} or in-package config")
         
         if config_name in conf.keys():
             return conf[config_name.upper()]

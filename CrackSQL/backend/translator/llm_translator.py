@@ -27,7 +27,7 @@ class LLMTranslator:
                 messages.append(message)
         messages.append({"role": "user", "content": user_prompt})
 
-        # 直接调用模型的chat方法
+        # call the model's chat method directly
         response = self.model.chat(messages)
 
         return response

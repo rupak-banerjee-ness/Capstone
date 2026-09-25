@@ -107,7 +107,7 @@ export const settings = {
    * vite.config.js base config
    * such as
    * */
-  //平台id  2->vue3-admin-plus
+  //platform id  2->vue3-admin-plus
   plateFormId: 2
 }
 

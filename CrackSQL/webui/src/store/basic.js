@@ -98,7 +98,7 @@ export const useBasicStore = defineStore('basic', {
       })
     },
 
-    /*keepAlive缓存*/
+    /*keepAlive cache*/
     addCachedView(view) {
       this.$patch((state) => {
         if (state.cachedViews.includes(view)) return

@@ -1,30 +1,30 @@
 <template>
   <div class="errPage-container">
-    <el-button icon="el-icon-arrow-left" class="pan-back-btn" @click="back">返回</el-button>
+    <el-button icon="el-icon-arrow-left" class="pan-back-btn" @click="back">Back</el-button>
     <el-row>
       <el-col :span="12">
         <h1 class="text-jumbo text-ginormous">Oops!</h1>
-        gif来源
+        gif source
         <a href="https://zh.airbnb.com/" target="_blank">airbnb</a>
-        页面
-        <h2>你没有权限去该页面</h2>
-        <h6>如有不满请联系你领导</h6>
+        page
+        <h2>You don't have permission to access this page</h2>
+        <h6>If you're unhappy about this, please contact your manager</h6>
         <ul class="list-unstyled">
-          <li>或者你可以去:</li>
+          <li>Or you can go to:</li>
           <li class="link-type">
-            <router-link to="/dashboard">回首页</router-link>
+            <router-link to="/dashboard">Back to home</router-link>
           </li>
           <li class="link-type">
-            <a href="https://www.taobao.com/">随便看看</a>
+            <a href="https://www.taobao.com/">Take a look around</a>
           </li>
-          <li><a href="#" @click.prevent="dialogVisible = true">点我看图</a></li>
+          <li><a href="#" @click.prevent="dialogVisible = true">Click me to see a picture</a></li>
         </ul>
       </el-col>
       <el-col :span="12">
         <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream." />
       </el-col>
     </el-row>
-    <el-dialog v-model="dialogVisible" title="随便看">
+    <el-dialog v-model="dialogVisible" title="Just take a look">
       <img :src="ewizardClap" class="pan-img" />
     </el-dialog>
   </div>
@@ -48,7 +48,7 @@ const back = () => {
     router.go(-1)
   }
 }
-//导出属性到页面中使用
+//export properties for use in the page
 const { ewizardClap, dialogVisible } = toRefs(state)
 </script>
 

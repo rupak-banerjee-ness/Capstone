@@ -1,7 +1,7 @@
 class ResponseCode(object):
-    Success = 0  # 成功
-    Fail = -1  # 失败
-    NoResourceFound = 40001  # 未找到资源
-    InvalidParameter = 40002  # 参数无效
-    FrequentOperation = 40009  # 操作频繁,请稍后再试
-    ResourceAlreadyExists = 40010  # 资源已经存在
+    Success = 0  # success
+    Fail = -1  # failure
+    NoResourceFound = 40001  # resource not found
+    InvalidParameter = 40002  # invalid parameter
+    FrequentOperation = 40009  # too many operations, please try again later
+    ResourceAlreadyExists = 40010  # resource already exists

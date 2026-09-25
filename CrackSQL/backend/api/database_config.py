@@ -133,7 +133,7 @@ def update_api():
     )
 
     if not result:
-        res.update(code=ResponseCode.Fail, msg="更新失败")
+        res.update(code=ResponseCode.Fail, msg="Update failed")
         return res.data
 
     res.update(data=result)

@@ -1,20 +1,20 @@
 import os
 import time
-from typing import Tuple, Dict, Any  # 引入额外的类型注解支持
+from typing import Tuple, Dict, Any  # additional type annotation support
 from config.logging_config import logger
 from flask import current_app
 
 def save_uploaded_file_to_local(file) -> Tuple[str, str]:
     """
-    将文件保存到本地
-    :param file: 文件
-    :return: (path: 文件地址, name: 文件名称)
+    Save the file locally
+    :param file: the file
+    :return: (path: file path, name: file name)
     """
-    # 生成一个唯一的文件名，避免文件覆盖
+    # generate a unique file name to avoid overwriting an existing file
 
-    # 使用时间戳和原文件名生成新的文件名
+    # generate the new file name using a timestamp and the original file name
     file_name = os.path.splitext(file.filename)[0] + '_' + str(int(time.time())) + os.path.splitext(file.filename)[1]
-    os.makedirs(current_app.config['UPLOAD_FOLDER'], exist_ok=True)  # 确保目录存在
+    os.makedirs(current_app.config['UPLOAD_FOLDER'], exist_ok=True)  # ensure the directory exists
     file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], file_name)
     try:
         with open(file_path, 'wb') as f:

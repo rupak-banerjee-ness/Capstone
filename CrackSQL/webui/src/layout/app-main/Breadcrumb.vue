@@ -54,7 +54,7 @@ const pathCompile = (path) => {
   return toPath(params)
 }
 const router = useRouter()
-//如果有redirect地址直接跳转，没有跳转path
+//if there's a redirect address, navigate there directly, otherwise navigate to path
 const handleLink = (item) => {
   const { redirect, path } = item
   if (redirect) {
@@ -63,7 +63,7 @@ const handleLink = (item) => {
   }
   if (path) router.push(pathCompile(path))
 }
-//监听路由路径刷新 面包屑显示数组
+//watch route path changes to refresh the breadcrumb display array
 watch(
   () => route.path,
   () => getBreadcrumb(),

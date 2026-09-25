@@ -3,7 +3,7 @@
     {{ $t('history.list.loading') }}
   </div>
   <div v-else class="relative columnSC detail-container">
-    <!-- 头部信息 -->
+    <!-- header info -->
     <div class="header">
       <div class="header-item rowBC" style="width: 100%; height: 35px">
         <div class="rowSC">
@@ -40,9 +40,9 @@
       </div>
     </div>
 
-    <!-- 消息列表 -->
+    <!-- message list -->
     <div ref="messagesScrollDiv" class="messages-container">
-      <!-- 用户输入的SQL -->
+      <!-- user-entered SQL -->
       <sql-input
           :message="{
             source_db_type: historyDetail.source_db_type,
@@ -55,7 +55,7 @@
           }"
       />
 
-      <!-- 改写过程 -->
+      <!-- rewrite process -->
       <chat-item
           v-for="process in historyDetail.processes"
           :key="process.id"
@@ -87,7 +87,7 @@ const historyDetail = ref<RewriteHistory | null>(null)
 const messagesScrollDiv = ref<HTMLElement | null>(null)
 const pollTimer = ref<number | null>(null)
 
-// 获取改写详情
+// get rewrite detail
 const getRewriteDetail = async () => {
   try {
     const res = await rewriteDetailReq(Number(route.params.id))
@@ -99,22 +99,22 @@ const getRewriteDetail = async () => {
       stopPolling()
     }
   } catch (error) {
-    console.error('获取改写详情失败:', error)
+    console.error('Failed to get rewrite detail:', error)
     stopPolling()
   }
 }
 
-// 停止改写
+// stop rewrite
 const stopRewrite = async () => {
   try {
     await stopRewriteReq({id: historyDetail.value?.id})
     getRewriteDetail()
   } catch (error) {
-    console.error('停止改写失败:', error)
+    console.error('Failed to stop rewrite:', error)
   }
 }
 
-// 开始轮询
+// start polling
 const startPolling = () => {
   if (!pollTimer.value) {
     pollTimer.value = window.setInterval(() => {
@@ -123,7 +123,7 @@ const startPolling = () => {
   }
 }
 
-// 停止轮询
+// stop polling
 const stopPolling = () => {
   if (pollTimer.value) {
     clearInterval(pollTimer.value)

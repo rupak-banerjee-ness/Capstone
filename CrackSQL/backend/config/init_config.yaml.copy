@@ -25,7 +25,7 @@ KNOWLEDGE_BASES:
   # MySQL knowledge base
   - kb_name: "mysql_knowledge"
     db_type: "mysql"
-    kb_info: "MySQL数据库知识库，包含MySQL的关键字、函数、操作符等信息"
+    kb_info: "MySQL database knowledge base, containing information about MySQL keywords, functions, operators, etc."
     embedding_model: "amazon.titan-embed-text-v2:0" 
     knowledge_files:
       - "../data/processed_document/mysql_8_kb.json"
@@ -33,7 +33,7 @@ KNOWLEDGE_BASES:
   # PostgreSQL knowledge base  
   - kb_name: "postgresql_knowledge"
     db_type: "postgresql"
-    kb_info: "PostgreSQL数据库知识库，包含PostgreSQL的关键字、函数、操作符等信息"
+    kb_info: "PostgreSQL database knowledge base, containing information about PostgreSQL keywords, functions, operators, etc."
     embedding_model: "amazon.titan-embed-text-v2:0" 
     knowledge_files:
       - "../data/processed_document/pg_14_kb.json"
@@ -41,7 +41,7 @@ KNOWLEDGE_BASES:
   # Oracle knowledge base
   - kb_name: "oracle_knowledge"
     db_type: "oracle"
-    kb_info: "Oracle 数据库知识库，包含Oracle的关键字、函数、操作符等信息"
+    kb_info: "Oracle database knowledge base, containing information about Oracle keywords, functions, operators, etc."
     embedding_model: "amazon.titan-embed-text-v2:0" 
     knowledge_files:
       - "../data/processed_document/oracle_11_kb.json"

@@ -3,15 +3,15 @@ import setting from '@/settings'
 export const useTagsViewStore = defineStore('tagsView', {
   state: () => {
     return {
-      visitedViews: [] //tag标签数组
+      visitedViews: [] //tag array
     }
   },
   actions: {
     addVisitedView(view) {
       this.$patch((state) => {
-        //判断添加的标签存在直接返回
+        //if the tag being added already exists, return directly
         if (state.visitedViews.some((v) => v.path === view.path)) return
-        //添加的数量如果大于 setting.tagsViewNum,则替换最后一个元素，否则在visitedViews数组后插入一个元素
+        //if the count exceeds setting.tagsViewNum, replace the last element, otherwise push a new element onto visitedViews
         if (state.visitedViews.length >= setting.tagsViewNum) {
           state.visitedViews.pop()
           state.visitedViews.push(
@@ -31,7 +31,7 @@ export const useTagsViewStore = defineStore('tagsView', {
     delVisitedView(view) {
       return new Promise((resolve) => {
         this.$patch((state) => {
-          //匹配view.path元素将其删除
+          //match the view.path element and remove it
           for (const [i, v] of state.visitedViews.entries()) {
             if (v.path === view.path) {
               state.visitedViews.splice(i, 1)

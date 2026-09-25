@@ -21,7 +21,7 @@ export function resizeHandler() {
   const resizeHandler = () => {
     if (!document.hidden) {
       if (isMobile()) {
-        /*此处只做根据window尺寸关闭sideBar功能*/
+        /*this only handles closing the sideBar based on window size*/
         basicStore.setSidebarOpen(false)
       } else {
         basicStore.setSidebarOpen(true)

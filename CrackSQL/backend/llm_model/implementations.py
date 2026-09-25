@@ -52,9 +52,9 @@ class CloudLLM(BaseLLM):
         import random
 
         max_retries = kwargs.get('max_retries', 5)
-        base_delay = kwargs.get('base_delay', 3)  # 基础延迟时间（秒）
+        base_delay = kwargs.get('base_delay', 3)  # base delay time (seconds)
 
-        # 将LangChain消息格式转换为OpenAI/LiteLLM格式
+        # convert LangChain message format to OpenAI/LiteLLM format
         litellm_messages = []
         for msg in messages:
             if isinstance(msg, SystemMessage):
@@ -69,12 +69,12 @@ class CloudLLM(BaseLLM):
         litellm_kwargs = self._build_litellm_kwargs()
         litellm_kwargs['messages'] = litellm_messages
 
-        # 重试机制
+        # retry mechanism
         for attempt in range(max_retries):
             try:
-                # 添加随机延迟，避免请求过于集中
+                # add a random delay to avoid overly concentrated requests
                 if attempt > 0:
-                    # 指数退避策略：随着重试次数增加，延迟时间指数增长
+                    # exponential backoff strategy: delay grows exponentially as retries increase
                     delay = base_delay * (2 ** attempt) + random.uniform(0, 1)
                     logger.info(
                         f"Rate limit reached, retrying in {delay:.2f} seconds (attempt {attempt + 1}/{max_retries})...")
@@ -91,7 +91,7 @@ class CloudLLM(BaseLLM):
 
             except litellm.RateLimitError as e:
                 logger.warning(f"Rate limit error (attempt {attempt + 1}/{max_retries}): {str(e)}")
-                if attempt == max_retries - 1:  # 最后一次尝试
+                if attempt == max_retries - 1:  # final attempt
                     logger.error(f"Max retries reached. Cloud LLM chat error: {str(e)}")
                     raise
             except Exception as e:
@@ -104,17 +104,17 @@ class CloudLLM(BaseLLM):
         import random
 
         max_retries = kwargs.get('max_retries', 3)
-        base_delay = kwargs.get('base_delay', 2)  # 基础延迟时间（秒）
+        base_delay = kwargs.get('base_delay', 2)  # base delay time (seconds)
 
         litellm_kwargs = self._build_litellm_kwargs()
         litellm_kwargs['messages'] = [{"role": "user", "content": prompt}]
 
-        # 重试机制
+        # retry mechanism
         for attempt in range(max_retries):
             try:
-                # 添加随机延迟，避免请求过于集中
+                # add a random delay to avoid overly concentrated requests
                 if attempt > 0:
-                    # 指数退避策略：随着重试次数增加，延迟时间指数增长
+                    # exponential backoff strategy: delay grows exponentially as retries increase
                     delay = base_delay * (2 ** attempt) + random.uniform(0, 1)
                     logger.info(
                         f"Rate limit reached, retrying in {delay:.2f} seconds (attempt {attempt + 1}/{max_retries})...")
@@ -131,7 +131,7 @@ class CloudLLM(BaseLLM):
 
             except litellm.RateLimitError as e:
                 logger.warning(f"Rate limit error (attempt {attempt + 1}/{max_retries}): {str(e)}")
-                if attempt == max_retries - 1:  # 最后一次尝试
+                if attempt == max_retries - 1:  # final attempt
                     logger.error(f"Max retries reached. Cloud LLM generate error: {str(e)}")
                     raise
             except Exception as e:
@@ -157,7 +157,7 @@ class LocalLLM(BaseLLM):
             torch_dtype = torch.bfloat16
         elif hasattr(torch, 'mps') and torch.backends.mps.is_available():
             device = "mps"
-            # MPS不支持bfloat16，使用float16或float32
+            # MPS doesn't support bfloat16, use float16 or float32
             torch_dtype = torch.float16 if torch.backends.mps.is_built() else torch.float32
         else:
             device = "cpu"
@@ -170,7 +170,7 @@ class LocalLLM(BaseLLM):
             
             self.tokenizer = AutoTokenizer.from_pretrained(model_path)
             
-            # 使用pipeline加载模型
+            # load model using a pipeline
             self.model = pipeline(
                 "text-generation",
                 model=model_path,
@@ -224,7 +224,7 @@ class LocalLLM(BaseLLM):
             assistant_response = full_response[0]["generated_text"][-1]
             # logger.info(f"Local LLM chat response: {assistant_response['content'][:100]}...")
 
-            # 构造与CloudLLM相同的返回格式
+            # build the same return format as CloudLLM
             response_format = {
                 "role": "assistant",
                 "content": assistant_response['content'],
@@ -243,7 +243,7 @@ class LocalLLM(BaseLLM):
     def generate(self, prompt: str, **kwargs) -> str:
         """Generate text"""
         try:
-            # 使用本地模型生成响应
+            # generate a response using the local model
             inputs = self.tokenizer(
                 prompt,
                 return_tensors="pt",
@@ -268,7 +268,7 @@ class LocalLLM(BaseLLM):
             response_text = self.tokenizer.decode(output[0], skip_special_tokens=True)
             logger.info(f"Local LLM generate response: {response_text[:100]}...")
 
-            # 构造与CloudLLM相同的返回格式
+            # build the same return format as CloudLLM
             response_format = {
                 "role": "assistant",
                 "content": response_text,

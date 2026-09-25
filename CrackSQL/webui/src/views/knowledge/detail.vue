@@ -157,7 +157,7 @@
                 </div>
               </el-card>
             </div>
-            <!-- 添加分页组件 -->
+            <!-- pagination component -->
             <div class="pagination-container">
               <el-pagination
                 v-model:current-page="currentPage"
@@ -169,7 +169,7 @@
                 @current-change="handleCurrentChange"
               />
             </div>
-            <!-- 编辑对话框 -->
+            <!-- edit dialog -->
             <el-dialog
               v-model="editDialogVisible"
               :title="$t('knowledge.detail.dialog.edit.title')"
@@ -319,7 +319,7 @@
         </el-collapse-item>
       </el-collapse>
     </el-dialog>
-    <!-- 添加新知识对话框 -->
+    <!-- add new knowledge dialog -->
     <el-dialog
       v-model="addItemDialogVisible"
       :title="$t('knowledge.detail.dialog.add.title')"
@@ -458,16 +458,16 @@ const newItemRules = {
 }
 
 const chunksDialogVisible = ref(false)
-const chunksDialogTitle = ref("文档分块详情")
+const chunksDialogTitle = ref("Document chunk details")
 const chunksLoading = ref(false)
 const currentChunks = ref(null)
 
-// 添加编辑相关的响应式变量
+// add edit-related reactive variables
 const editDialogVisible = ref(false)
 const currentEditItem = ref<JsonItem | null>(null)
 const currentEditIndex = ref(-1)
 
-// 添加新知识相关
+// add-new-knowledge related
 const addItemDialogVisible = ref(false)
 const addingItem = ref(false)
 const newItem = ref({
@@ -480,7 +480,7 @@ const newItem = ref({
   example: ''
 })
 
-// 添加 JSON 格式示例
+// add JSON format example
 const jsonFormatExample = ref(`[
   {
     "keyword": "SQL snippet, REQUIRED",
@@ -522,10 +522,10 @@ const handleCurrentChange = (val: number) => {
 const getItems = () => {
   getKnowledgeBaseItemsReq(route.query.kb_name, currentPage.value, pageSize.value).then(res => {
     totalCount.value = res.data.total
-    // 直接使用新数据替换当前页的数据
+    // directly replace the current page's data with the new data
     itemList.value = res.data.items
 
-    // 检查是否有文档正在处理中
+    // check whether any documents are currently processing
     const hasProcessing = itemList.value.some(doc =>
         doc.status === 'pending'
     )
@@ -537,16 +537,16 @@ const getItems = () => {
   })
 }
 
-// 开始轮询
+// start polling
 const startPolling = () => {
   if (pollingTimer.value) return
-  // 设置轮询间隔
+  // set the polling interval
   pollingTimer.value = setInterval(() => {
     getItems()
-  }, 5000) // 每5秒轮询一次
+  }, 5000) // poll every 5 seconds
 }
 
-// 停止轮询
+// stop polling
 const stopPolling = () => {
   if (pollingTimer.value) {
     clearInterval(pollingTimer.value)
@@ -576,7 +576,7 @@ const onHandleSaveClick = () => {
       type: 'success',
       message: 'Update completed',
     })
-    // 修改当前路由的query参数
+    // update the current route's query params
     router.replace({
       query: {
         ...route.query,
@@ -635,7 +635,7 @@ const routerBack = () => {
   router.back()
 }
 
-// 添加文件大小格式化函数
+// add file size formatting function
 const formatFileSize = (bytes: number): string => {
   if (bytes === 0 || !bytes) return '0 B'
   const k = 1024
@@ -644,13 +644,13 @@ const formatFileSize = (bytes: number): string => {
   return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`
 }
 
-// 监听分页变化
+// watch pagination changes
 const handlePageChange = (page: number) => {
   currentPage.value = page
   getItems()
 }
 
-// 获取状态类型
+// get status type
 const getStatusType = (status: string): string => {
   const statusMap = {
     completed: 'success',
@@ -661,7 +661,7 @@ const getStatusType = (status: string): string => {
   return statusMap[status] || 'info'
 }
 
-// 获取状态文本
+// get status text
 const getStatusText = (status: string): string => {
   const statusMap = {
     completed: 'Completed',
@@ -672,7 +672,7 @@ const getStatusText = (status: string): string => {
   return statusMap[status] || status
 }
 
-// 格式化时间
+// format time
 const formatTime = (time: string) => {
   return new Date(time).toLocaleString('zh-CN', {
     year: 'numeric',
@@ -683,7 +683,7 @@ const formatTime = (time: string) => {
   })
 }
 
-// 重试处理
+// retry handling
 const handleRetry = async (item: any) => {
   try {
     await vectorizeKnowledgeBaseItemsReq(route.query.kb_name, [item.id])
@@ -694,7 +694,7 @@ const handleRetry = async (item: any) => {
   }
 }
 
-// 添加上传按钮点击处理函数
+// add upload button click handler
 const onOpenUpdateDialog = () => {
   router.push({
     name: 'KnowledgeDetailImport',
@@ -704,7 +704,7 @@ const onOpenUpdateDialog = () => {
   })
 }
 
-// 在组件挂载时获取知识库详情
+// get knowledge base detail when the component mounts
 onMounted(() => {
   getKnowledgeBaseDetail()
 })
@@ -720,14 +720,14 @@ interface JsonItem {
   example: string
 }
 
-// 处理编辑
+// handle edit
 const handleEdit = (index: number) => {
   currentEditIndex.value = index
   currentEditItem.value = { ...itemList.value[index] }
   editDialogVisible.value = true
 }
 
-// 保存编辑
+// save edit
 const handleSaveEdit = async () => {
   if (currentEditItem.value && currentEditIndex.value !== -1) {
     try {
@@ -741,7 +741,7 @@ const handleSaveEdit = async () => {
   }
 }
 
-// 删除项目
+// delete item
 const handleDeleteItem = async (index: number) => {
   try {
     await deleteKnowledgeBaseItemsReq(route.query.kb_name, [itemList.value[index].id])
@@ -753,7 +753,7 @@ const handleDeleteItem = async (index: number) => {
   }
 }
 
-// 显示添加对话框
+// show add dialog
 const showAddItemDialog = () => {
   newItem.value = {
     keyword: '',
@@ -767,7 +767,7 @@ const showAddItemDialog = () => {
   addItemDialogVisible.value = true
 }
 
-// 处理添加新知识
+// handle adding new knowledge
 const handleAddItem = async () => {
   const formEl = newItemForm.value as FormInstance | undefined
   
@@ -1166,7 +1166,7 @@ const toggleExpand = (index: number) => {
   }
 }
 
-/* 美化滚动条样式 */
+/* styled scrollbar */
 .card-body::-webkit-scrollbar,
 .json-content::-webkit-scrollbar {
   width: 6px;

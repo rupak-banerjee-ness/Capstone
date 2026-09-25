@@ -135,15 +135,15 @@ class RewriteService:
             'rewritten_sql': history.rewritten_sql
         }
 
-        # 计算持续时间
+        # calculate the duration
         if history.created_at:
-            # 根据状态决定使用哪个时间点计算
+            # decide which timestamp to use based on status
             end_time = datetime.now() if history.status == RewriteStatus.PROCESSING else history.updated_at
             if end_time:
-                # 计算时间差（秒）
+                # calculate the time difference (seconds)
                 time_diff = (end_time - history.created_at).total_seconds()
 
-                # 格式化持续时间
+                # format the duration
                 if time_diff < 60:
                     duration = f"{int(time_diff)} s"
                 elif time_diff < 3600:

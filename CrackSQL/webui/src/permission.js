@@ -5,8 +5,8 @@ import { i18n } from '@/lang/index'
 
 // import settings from "@/settings";
 
-//路由进入前拦截
-//to:将要进入的页面 vue-router4.0 不推荐使用next()
+//intercept before route entry
+//to: the page about to be entered vue-router4.0 does not recommend using next()
 // const whiteList = ['/login', '/404', '/401'] // no redirect whitelist
 router.beforeEach(async (to) => {
   progressStart()
@@ -20,7 +20,7 @@ router.beforeEach(async (to) => {
   //   basicStore.setFilterAsyncRoutes([])
   //   return true
   // }
-  //1.判断token
+  //1. check token
   // if (basicStore.token) {
   //   if (to.path === '/login') {
   //     return '/'
@@ -36,7 +36,7 @@ router.beforeEach(async (to) => {
   //   }
   // }
 })
-//路由进入后拦截
+//intercept after route entry
 router.afterEach(() => {
   progressClose()
 })

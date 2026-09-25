@@ -10,13 +10,13 @@ function saveLocalStorageOptions(options) {
   localStorage.setItem(TOUR_OPTIONS_KEY, JSON.stringify(options));
 }
 
-// 检查是否是首次访问
+// check whether this is the first visit
 export const hasWebsiteBeenShownFirstTime = () => {
   const tourOptions = getLocalStorageOptions();
   return !!tourOptions[WEBSITE_FIRST_SHOW_KEY];
 }
 
-// 设置首次访问状态
+// set the first-visit status
 export const setWebsiteFirstShowStatus = (status) => {
   const tourOptions = getLocalStorageOptions();
   tourOptions[WEBSITE_FIRST_SHOW_KEY] = status;

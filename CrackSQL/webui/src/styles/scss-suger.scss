@@ -1,6 +1,6 @@
-/*脱落文档流定位*/
+/*positioned outside the document flow*/
 .center-50 {
-  //居中定位
+  //centered positioning
   position: absolute;
   top: 50%;
   left: 50%;
@@ -37,7 +37,7 @@
 }
 /*fixed*/
 .fixed-center-50 {
-  //居中定位
+  //centered positioning
   position: fixed;
   top: 50%;
   left: 50%;
@@ -81,7 +81,7 @@
 }
 
 /*
-flex布局 第一个字母为主轴
+flex layout, the first letter denotes the main axis
 */
 .wrap {
   flex-wrap: wrap;
@@ -257,7 +257,7 @@ flex布局 第一个字母为主轴
   align-items: flex-end;
 }
 
-//*图标
+//*icon
 .star-icon {
   color: #f56c6c;
   font-size: 14px;
@@ -275,18 +275,18 @@ flex布局 第一个字母为主轴
   width: 100vw;
 }
 
-//table操作栏
+//table operation bar
 .table-operation-btn {
   span {
-    //点击样式
+    //click style
     cursor: pointer;
     color: #477ef5;
   }
 }
 
-//table操作栏
+//table operation bar
 .btn-click-style {
-  //点击样式
+  //click style
   cursor: pointer;
   color: #477ef5;
 }

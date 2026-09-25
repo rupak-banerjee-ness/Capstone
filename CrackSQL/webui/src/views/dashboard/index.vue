@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <!-- 顶部标题区域 -->
+    <!-- top title area -->
     <div class="header-section">
       <div class="header-content">
         <div class="title-area" id="welcome">
@@ -10,9 +10,9 @@
       </div>
     </div>
 
-    <!-- 主要操作区域 -->
+    <!-- main operation area -->
     <div class="main-section">
-      <!-- 左侧功能介绍改为案例分享 -->
+      <!-- left-side feature intro changed to case studies -->
       <div class="features-panel">
         <div class="feature-card">
           <el-icon class="feature-icon">
@@ -80,9 +80,9 @@
         </div>
       </div>
 
-      <!-- 右侧操作面板 -->
+      <!-- right-side operation panel -->
       <div class="operation-panel">
-        <!-- 数据库选择区域 -->
+        <!-- database selection area -->
         <div class="database-selector">
           <div id="source-db" class="source-db" style="width: 30%!important; min-width: 100px;">
             <label>{{ $t('dashboard.operation.sourceDb.label') }}</label>
@@ -143,7 +143,7 @@
           </div>
         </div>
 
-        <!-- 知识库选择区域 -->
+        <!-- knowledge base selection area -->
         <div class="knowledge-selector">
           <div id="source-kb" class="source-kb" style="width: 30%!important; min-width: 100px;">
             <label>{{ $t('dashboard.operation.sourceKb.label') }}</label>
@@ -195,7 +195,7 @@
           </div>
         </div>
 
-        <!-- SQL输入区域 -->
+        <!-- SQL input area -->
         <div class="sql-input">
           <el-input
               id="sql-input"
@@ -218,7 +218,7 @@
       </div>
     </div>
 
-    <!-- 添加数据库配置对话框 -->
+    <!-- add database configuration dialog -->
     <el-dialog
         v-model="addDatabaseDialogVisible"
         :title="$t('dashboard.dialog.add.title')"
@@ -255,7 +255,7 @@ import {useI18n} from 'vue-i18n'
 
 const i18n = useI18n()
 
-// 数据库类型选项
+// database type options
 const databaseOptions = ref([])
 const knowledgeBaseOptions = ref([])
 const llmModelOptions = ref([])
@@ -282,7 +282,7 @@ const sendBtnDisabledText = computed(() => {
 
 const router = useRouter()
 
-// SQL示例数据
+// SQL example data
 const sqlExamples = reactive({
   postgresToMysql: {
     source: 'SELECT DISTINCT "t1"."id" , EXTRACT(YEAR FROM CURRENT_TIMESTAMP) - EXTRACT(YEAR FROM CAST( "t1"."birthday" AS TIMESTAMP )) FROM "patient" AS "t1" INNER JOIN "examination" AS "t2" ON "t1"."id" = "t2"."id" WHERE "t2"."rvvt" = \'+\'',
@@ -345,34 +345,34 @@ const showAddDatabaseDialog = () => {
 
 const searchKeyword = ref('')
 
-// 搜索处理
+// search handling
 const handleSearch = () => {
   getDatabaseList()
 }
 
-// 修改获取数据库列表方法
+// modified method to get the database list
 const getDatabaseList = async () => {
   try {
-    const res = await databaseListReq(100, 0, searchKeyword.value)  // 带搜索关键字获取配置
+    const res = await databaseListReq(100, 0, searchKeyword.value)  // get configs with a search keyword
     targetDBList.value = res.data.data
     total.value = res.data.total
   } catch (error) {
-    console.error('获取数据库列表失败:', error)
-    ElMessage.error('获取数据库列表失败')
+    console.error('Failed to get database list:', error)
+    ElMessage.error('Failed to get database list')
   }
 }
 
-// 获取知识库列表
+// get knowledge base list
 const getKnowledgeList = async () => {
   try {
     const res = await knowledgeListReq()
     knowledgeBaseOptions.value = res.data
   } catch (error) {
-    console.error('获取知识库列表失败:', error)
+    console.error('Failed to get knowledge base list:', error)
   }
 }
 
-// 获取支持的数据库类型列表
+// get list of supported database types
 const getSupportDatabaseOptions = async () => {
   const res = await supportDatabaseReq()
   databaseOptions.value = res.data
@@ -391,25 +391,25 @@ const fetchModels = async () => {
 }
 
 onMounted(() => {
-  // 获取数据库配置列表
+  // get database configuration list
   getDatabaseList()
-  // 获取支持的数据库类型列表
+  // get list of supported database types
   getSupportDatabaseOptions()
-  // 获取知识库列表
+  // get knowledge base list
   getKnowledgeList()
-  // 获取LLM模型列表
+  // get LLM model list
   fetchModels()
 });
 
 const onSendClick = async () => {
   try {
-    // 获取选中的目标数据库配置
+    // get the selected target database configuration
     const targetConfig = targetDBList.value.find(item => item.id === Number.parseInt(targetDB.value))
     if (!targetDB.value) {
-      ElMessage.error('请选择目标数据库')
+      ElMessage.error('Please select a target database')
       return
     }
-    // 构造创建改写历史的参数
+    // build the params to create the rewrite history
     const data = {
       source_db_type: originalDB.value,
       source_kb_id: originalKb.value,
@@ -419,35 +419,35 @@ const onSendClick = async () => {
       target_db_id: targetConfig.id
     }
 
-    // 创建改写历史
+    // create rewrite history
     await createRewriteReq(data)
 
-    // 跳转到chat页面
+    // navigate to the chat page
     router.push('/chat')
 
   } catch (error) {
-    console.error('创建改写历史失败:', error)
+    console.error('Failed to create rewrite history:', error)
   }
 }
 
-// 保存数据库配置
+// save database configuration
 const onSaveClick = async () => {
   try {
     if (!databaseConfigFormRef.value) return
     const formData = await databaseConfigFormRef.value.validateForm()
     await createDatabaseReq(formData)
-    ElMessage.success('创建成功')
-    getDatabaseList()  // 刷新列表
-    addDatabaseDialogVisible.value = false  // 关闭对话框
+    ElMessage.success('Created successfully')
+    getDatabaseList()  // refresh list
+    addDatabaseDialogVisible.value = false  // close dialog
   } catch (error) {
-    console.error('保存失败:', error)
-    if (error !== '表单验证失败') {
-      ElMessage.error('保存失败')
+    console.error('Failed to save:', error)
+    if (error !== 'Form validation failed') {
+      ElMessage.error('Failed to save')
     }
   }
 }
 
-// 添加示例SQL到输入框的函数
+// function to add an example SQL to the input box
 const useExample = (exampleSql) => {
   userInput.value = exampleSql
 }

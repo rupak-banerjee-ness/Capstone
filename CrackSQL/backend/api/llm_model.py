@@ -64,7 +64,7 @@ def delete_model():
             return res.data
         res.update(msg="Delete successfully")
     except Exception as e:
-        res.update(code=500, msg=f"删除模型失败: {str(e)}")
+        res.update(code=500, msg=f"Failed to delete model: {str(e)}")
     return res.data
 
 

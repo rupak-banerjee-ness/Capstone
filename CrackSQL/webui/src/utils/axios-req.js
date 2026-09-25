@@ -2,16 +2,16 @@ import axios from 'axios'
 import { ElLoading, ElMessage, ElMessageBox } from 'element-plus'
 import { useBasicStore } from '@/store/basic'
 
-//使用axios.create()创建一个axios请求实例
+//create an axios request instance with axios.create()
 const service = axios.create()
-let loadingInstance = null //loading实例
+let loadingInstance = null //loading instance
 let tempReqUrlSave = ''
 let authorTipDoor = true
 
 const noAuthDill = () => {
   authorTipDoor = false
-  ElMessageBox.confirm('请重新登录', {
-    confirmButtonText: '重新登录',
+  ElMessageBox.confirm('Please log in again', {
+    confirmButtonText: 'Log in again',
     closeOnClickModal: false,
     showCancelButton: false,
     showClose: false,
@@ -22,11 +22,11 @@ const noAuthDill = () => {
   })
 }
 
-//请求前拦截
+//intercept before request
 service.interceptors.request.use(
   (req) => {
     const { token, axiosPromiseArr } = useBasicStore()
-    //axiosPromiseArr收集请求地址,用于取消请求
+    //axiosPromiseArr collects request URLs, used for cancelling requests
     req.cancelToken = new axios.CancelToken((cancel) => {
       tempReqUrlSave = req.url
       axiosPromiseArr.push({
@@ -35,9 +35,9 @@ service.interceptors.request.use(
       })
     })
 
-    //设置token到header
+    //set token in the header
     if (token) req.headers['Authorization'] = token
-    //如果req.method给get 请求参数设置为 ?name=xxx
+    //if req.method is get, set the request params as ?name=xxx
     if ('get'.includes(req.method?.toLowerCase()) && !req.params) req.params = req.data
 
     //req loading
@@ -47,22 +47,22 @@ service.interceptors.request.use(
         lock: true,
         fullscreen: true,
         // spinner: 'CircleCheck',
-        text: '数据载入中...',
+        text: 'Loading data...',
         background: 'rgba(0, 0, 0, 0.1)'
       })
     }
     return req
   },
   (err) => {
-    //发送请求失败
+    //request failed to send
     Promise.reject(err)
   }
 )
-//请求后拦截
+//intercept after response
 service.interceptors.response.use(
   (res) => {
 
-    //取消请求
+    //cancel request
     useBasicStore().remotePromiseArrByReqUrl(tempReqUrlSave)
     if (loadingInstance) {
       loadingInstance && loadingInstance.close()
@@ -82,7 +82,7 @@ service.interceptors.response.use(
     if (successCode.includes(code)) {
       return res.data
     } else {
-      //authorTipDoor 防止多个请求 多次alter
+      //authorTipDoor prevents multiple requests from alerting multiple times
       if (authorTipDoor) {
         if (noAuthCode.includes(code)) {
           noAuthDill()
@@ -101,9 +101,9 @@ service.interceptors.response.use(
       }
     }
   },
-  //响应报错
+  //error handling on response
   (err) => {
-    //取消请求
+    //cancel request
     useBasicStore().remotePromiseArrByReqUrl(tempReqUrlSave)
     if (loadingInstance) {
       loadingInstance && loadingInstance.close()
@@ -115,7 +115,7 @@ service.interceptors.response.use(
     return Promise.reject(err)
   }
 )
-//导出service实例给页面调用 , config->页面的配置
+//export the service instance for pages to call , config->page config
 export default function axiosReq(config) {
   return service({
     baseURL: import.meta.env.VITE_APP_BASE_URL,

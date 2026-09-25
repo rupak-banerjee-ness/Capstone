@@ -146,7 +146,7 @@ export const constantRoutes = [
   {path: "/:pathMatch(.*)", redirect: "/404", hidden: true}
 ]
 
-//角色和code数组动态路由
+//role and code array dynamic routes
 export const roleCodeRoutes = []
 /**
  * asyncRoutes

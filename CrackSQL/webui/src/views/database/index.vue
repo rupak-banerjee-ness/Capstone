@@ -27,7 +27,7 @@
       <el-tooltip
           v-for="item in databaseList"
           :key="item.id"
-          :content="item.description || '暂无描述'"
+          :content="item.description || 'No description'"
           placement="top"
           :show-after="200"
       >
@@ -82,7 +82,7 @@
             </div>
           </div>
 
-          <!-- 操作按钮 -->
+          <!-- action buttons -->
           <div class="rowEC" style="margin-top: 10px">
             <el-button type="primary" link @click="handleEdit(item)">{{ $t('database.action.edit') }}</el-button>
             <el-button type="danger" link @click="handleDelete(item)">{{ $t('database.action.delete') }}</el-button>
@@ -91,7 +91,7 @@
       </el-tooltip>
     </div>
 
-    <!-- 分页 -->
+    <!-- pagination -->
     <div class="pagination-container" style="margin-top: auto; padding: 20px;">
       <el-pagination
           v-model:current-page="currentPage"
@@ -151,37 +151,37 @@ const editForm = reactive<DatabaseConfig>({
   description: ''
 })
 
-// 获取数据库列表
+// get database list
 const getDatabaseList = async () => {
   try {
     const res = await databaseListReq(pageSize.value, currentPage.value - 1, searchKeyword.value)
     databaseList.value = res.data.data
     total.value = res.data.total
   } catch (error) {
-    console.error('获取数据库列表失败:', error)
-    ElMessage.error('获取数据库列表失败')
+    console.error('Failed to get database list:', error)
+    ElMessage.error('Failed to get database list')
   }
 }
 
-// 搜索
+// search
 const handleSearch = () => {
   currentPage.value = 1
   getDatabaseList()
 }
 
-// 分页大小改变
+// page size changed
 const handleSizeChange = (val: number) => {
   pageSize.value = val
   getDatabaseList()
 }
 
-// 当前页改变
+// current page changed
 const handleCurrentChange = (val: number) => {
   currentPage.value = val
   getDatabaseList()
 }
 
-// 创建数据库配置
+// create database configuration
 const onCreateDatabaseClick = () => {
   isEdit.value = false
   Object.assign(editForm, {
@@ -196,14 +196,14 @@ const onCreateDatabaseClick = () => {
   dialogVisible.value = true
 }
 
-// 编辑数据库配置
+// edit database configuration
 const handleEdit = (item: DatabaseConfig) => {
   isEdit.value = true
   Object.assign(editForm, item)
   dialogVisible.value = true
 }
 
-// 删除数据库配置
+// delete database configuration
 const handleDelete = (item: DatabaseConfig) => {
   ElMessageBox.confirm(
       i18n.t('database.message.deleteConfirm'),
@@ -219,13 +219,13 @@ const handleDelete = (item: DatabaseConfig) => {
       ElMessage.success(i18n.t('database.message.deleteSuccess'))
       getDatabaseList()
     } catch (error) {
-      console.error('删除失败:', error)
+      console.error('Failed to delete:', error)
       ElMessage.error(i18n.t('database.message.deleteError'))
     }
   })
 }
 
-// 保存配置
+// save configuration
 const handleSave = async () => {
   try {
     if (!databaseConfigFormRef.value) return
@@ -236,8 +236,8 @@ const handleSave = async () => {
     dialogVisible.value = false
     getDatabaseList()
   } catch (error) {
-    console.error('保存失败:', error)
-    if (error !== '表单验证失败') {
+    console.error('Failed to save:', error)
+    if (error !== 'Form validation failed') {
       ElMessage.error(i18n.t('database.message.saveError'))
     }
   }

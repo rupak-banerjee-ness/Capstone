@@ -1,6 +1,6 @@
 <template>
   <div class="history-container">
-    <!-- 标题区域 -->
+    <!-- title area -->
     <div class="header-section">
       <h2>{{ $t('history.title') }}</h2>
       <el-input
@@ -19,7 +19,7 @@
       </el-input>
     </div>
 
-    <!-- 历史记录列表 -->
+    <!-- history record list -->
     <div v-if="historyList.length === 0" class="empty-state">
       <el-empty :description="$t('history.empty.title')">
         <template #image>
@@ -109,7 +109,7 @@
       </div>
     </div>
 
-    <!-- 分页 -->
+    <!-- pagination -->
     <div v-if="historyList.length > 0" class="pagination-section">
       <el-pagination
           v-model:current-page="currentPage"
@@ -144,24 +144,24 @@ const currentHistory = ref<RewriteHistory | null>(null)
 const router = useRouter()
 const expandedItems = ref<Set<string>>(new Set())
 
-// 获取历史列表
+// get history list
 const getHistoryList = async () => {
   try {
     const res = await rewriteListReq(pageSize.value, currentPage.value - 1, searchKeyword.value)
     historyList.value = res.data.data
     total.value = res.data.total
   } catch (error) {
-    console.error('获取历史列表失败:', error)
+    console.error('Failed to get history list:', error)
   }
 }
 
-// 搜索
+// search
 const handleSearch = () => {
   currentPage.value = 1
   getHistoryList()
 }
 
-// 分页处理
+// pagination handling
 const handleSizeChange = (val: number) => {
   pageSize.value = val
   getHistoryList()
@@ -172,12 +172,12 @@ const handleCurrentChange = (val: number) => {
   getHistoryList()
 }
 
-// 格式化日期
+// format date
 const formatDate = (date: string) => {
   return new Date(date).toLocaleString()
 }
 
-// 获取状态标签类型
+// get status tag type
 const getStatusType = (status: string) => {
   const types = {
     success: 'success',
@@ -187,18 +187,18 @@ const getStatusType = (status: string) => {
   return types[status as keyof typeof types]
 }
 
-// 显示详情
+// show detail
 const showDetail = async (row: RewriteHistory) => {
   router.push(`/history/${row.id}`)
 }
 
-// 清除搜索
+// clear search
 const clearSearch = () => {
   searchKeyword.value = ''
   getHistoryList()
 }
 
-// 确认删除
+// confirm delete
 const confirmDelete = async (row: RewriteHistory) => {
   try {
     const res = await deleteRewriteReq(row.id)
@@ -209,12 +209,12 @@ const confirmDelete = async (row: RewriteHistory) => {
       ElMessage.error(res.msg || i18n.t('history.delete.error'))
     }
   } catch (error) {
-    console.error('删除历史记录失败:', error)
+    console.error('Failed to delete history record:', error)
     ElMessage.error(i18n.t('history.delete.error'))
   }
 }
 
-// 处理展开/收起
+// handle expand/collapse
 const toggleExpand = (id: string) => {
   if (expandedItems.value.has(id)) {
     expandedItems.value.delete(id)

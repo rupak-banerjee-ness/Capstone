@@ -90,7 +90,7 @@ def create_api():
             llm_model_name=obj['llm_model_name']
         )
         
-        # 使用scheduler添加任务，移除asyncio.create_task调用
+        # use the scheduler to add the task, removing the asyncio.create_task call
         scheduler.add_job(
             func=RewriteService.process_rewrite_task,
             args=[result['id']],

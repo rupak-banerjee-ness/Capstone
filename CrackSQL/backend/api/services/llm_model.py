@@ -20,7 +20,7 @@ class LLMModelService:
         try:
             deployment_type = data['deployment_type']
         except ValueError:
-            raise ValueError(f"无效的模型类型: {data['deployment_type']}")
+            raise ValueError(f"Invalid model type: {data['deployment_type']}")
 
         if deployment_type == "local" and not data.get('path'):
             raise ValueError("Local model must provide model path")
@@ -125,7 +125,7 @@ class LLMModelService:
             try:
                 query = query.filter(LLMModel.deployment_type == deployment_type)
             except ValueError:
-                raise ValueError(f"无效的模型类型: {deployment_type}")
+                raise ValueError(f"Invalid model type: {deployment_type}")
 
         if category:
             query = query.filter(LLMModel.category == category)

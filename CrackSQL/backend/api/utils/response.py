@@ -4,11 +4,11 @@ from api.utils.code import ResponseCode
 
 class ResMsg(object):
     """
-    封装响应文本
+    Wraps the response text
     """
 
     def __init__(self, data=None, code=ResponseCode.Success, rq=request):
-        # 获取请求中语言选择,默认为中文
+        # get the language selection from the request, default to Chinese
         self.lang = rq.headers.get("lang","en")
         self._data = data
         self._msg = current_app.config["RESPONSE_MESSAGE"].get(self.lang, {}).get(code, None)
@@ -16,15 +16,15 @@ class ResMsg(object):
 
     def update(self, code=None, data=None, msg=None):
         """
-        更新默认响应文本
-        :param code:响应编码
-        :param data: 响应数据
-        :param msg: 响应消息
+        Update the default response text
+        :param code: response code
+        :param data: response data
+        :param msg: response message
         :return:
         """
         if code is not None:
             self._code = code
-            # 获取对应语言的响应消息
+            # get the response message for the corresponding language
             self._msg = current_app.config["RESPONSE_MESSAGE"].get(self.lang, {}).get(code, None)
         if data is not None:
             self._data = data
@@ -33,9 +33,9 @@ class ResMsg(object):
 
     def add_field(self, name=None, value=None):
         """
-        在响应文本中加入新的字段，方便使用
-        :param name: 变量名
-        :param value: 变量值
+        Add a new field into the response text for convenience
+        :param name: variable name
+        :param value: variable value
         :return:
         """
         if name is not None and value is not None:
@@ -44,7 +44,7 @@ class ResMsg(object):
     @property
     def data(self):
         """
-        输出响应文本内容
+        Output the response text content
         :return:
         """
         body = self.__dict__

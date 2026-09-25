@@ -9,16 +9,16 @@ def retry_on_error(
     exceptions: Optional[Union[Type[Exception], Tuple[Type[Exception], ...]]] = None,
     logger_name: str = None
 ):
-    """重试装饰器
+    """Retry decorator
     
     Args:
-        max_retries: 最大重试次数
-        delay: 重试延迟时间(秒)
-        exceptions: 需要重试的异常类型，默认为所有异常
-        logger_name: 日志记录器名称，用于自定义错误信息前缀
+        max_retries: maximum number of retries
+        delay: retry delay time (seconds)
+        exceptions: exception types that should trigger a retry, default is all exceptions
+        logger_name: logger name, used to customize the error message prefix
     
     Returns:
-        装饰器函数
+        the decorator function
     
     Example:
         @retry_on_error(max_retries=3, delay=1, exceptions=(ValueError, KeyError))
@@ -38,20 +38,20 @@ def retry_on_error(
                 try:
                     return func(*args, **kwargs)
                 except Exception as e:
-                    # 如果指定了异常类型，且当前异常不匹配，则直接抛出
+                    # if an exception type is specified and the current exception doesn't match, re-raise directly
                     if exceptions and not isinstance(e, exceptions):
                         raise
                         
                     if attempt == max_retries - 1:
                         logger.error(
-                            f"{error_prefix}操作失败，已重试{max_retries}次: {str(e)}"
+                            f"{error_prefix}Operation failed, already retried {max_retries} times: {str(e)}"
                         )
                         raise
                         
                     logger.warning(
-                        f"{error_prefix}操作失败，正在重试 ({attempt + 1}/{max_retries}): {str(e)}"
+                        f"{error_prefix}Operation failed, retrying ({attempt + 1}/{max_retries}): {str(e)}"
                     )
-                    # 使用指数退避策略
+                    # use an exponential backoff strategy
                     time.sleep(delay * (2 ** attempt))
             return None
         return wrapper

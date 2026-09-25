@@ -1,8 +1,8 @@
-//scss 语法糖包含常用的布局方式 flex column
+//scss syntax sugar containing common flex/column layouts
 @use './scss-suger.scss';
-//重置 element-plus 样式
+//reset element-plus style
 @use 'reset-elemenet-plus-style.scss';
-//动画文件
+//animation file
 @use 'transition.scss';
 
 //reset style
@@ -50,7 +50,7 @@ output {
 
 //scroll
 @mixin main-show-wh() {
-  /* css 声明 */
+  /* css declaration */
   //height: calc(100vh - #{$navBarHeight} - #{$tagViewHeight} - #{$appMainPadding * 2});
   height: 100vh !important;
   width: 100%;

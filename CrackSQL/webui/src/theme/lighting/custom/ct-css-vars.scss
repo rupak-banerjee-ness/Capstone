@@ -52,20 +52,20 @@ html.lighting-theme {
   --nav-bar-box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   --nav-bar-right-menu-background: #fff;
 
-  //transition 动画
-  //侧边栏切换动画时长
+  //transition animation
+  //sidebar toggle animation duration
   --sideBar-switch-duration: 0.2s;
-  //logo切换动画时长
-  --logo-switch-duration: 0.5s;
-  //页面动画时长
+  //logo switch animation duration
+  --logo-switch-duration: 1s;
+  //page animation duration
   --page-transform-duration: 0.2s;
-  //面包屑导航动画时长
+  //breadcrumb navigation animation duration
   --breadcrumb-change-duration: 0.2s;
 
-  //进度条颜色
+  //progress bar color
   --pregress-bar-color: #409eff;
-  //背景
+  //background
   --body-background: #f2F2f2;
-  //border颜色
+  //border color
   --border-color: #e4e7ed;
 }

@@ -14,18 +14,18 @@ def db_session_manager(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         try:
-            # 首先尝试获取当前应用上下文
+            # first try to get the current application context
             if not current_app:
-                # 如果没有当前上下文，检查db.app是否已初始化
+                # if there's no current context, check whether db.app has been initialized
                 if not hasattr(db, 'app') or db.app is None:
-                    raise RuntimeError("数据库应用上下文未初始化，请确保先调用 create_app()")
+                    raise RuntimeError("Database application context not initialized, make sure to call create_app() first")
                     
                 with db.app.app_context():
                     return func(*args, **kwargs)
             return func(*args, **kwargs)
         except Exception as e:
-            logger.error(f"数据库操作失败: {str(e)}")
-            # 重新抛出异常，保留原始的堆栈跟踪
+            logger.error(f"Database operation failed: {str(e)}")
+            # re-raise the exception, preserving the original stack trace
             raise
 
     return wrapper 
