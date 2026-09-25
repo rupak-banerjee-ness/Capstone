@@ -179,12 +179,24 @@ class Translator:
         ori_piece, last_time_piece = None, None
         err_msg_list, err_info_list = list(), list()
 
+        # Root piece represents the whole statement; used to force an initial LLM pass below
+        root_piece = next((p for p in all_pieces if p['Node'] == root_node), None)
+
         # Locate first fragment to process
         piece, assist_info = locate_node_piece(current_sql, self.tgt_dialect, all_pieces,
                                                root_node, self.tgt_db_config, self.tgt_kb_name)
 
-        # If no fragment located, use model judgment
-        if piece is None:
+        # Executing the raw, untranslated source-dialect SQL against the target DB can
+        # spuriously "succeed" (e.g. a plain SELECT is valid syntax in both MySQL and
+        # PostgreSQL), or fail with an error that isn't recognized/located. Either way,
+        # `locate_node_piece` returns None on the very first pass before the LLM has been
+        # consulted at all, which would let the untranslated SQL be returned as the final
+        # "translation". Force one LLM translation pass over the whole statement first, and
+        # only fall back to model judgment on later iterations once a real candidate exists.
+        if piece is None and current_sql == self.src_sql and self.src_dialect != self.tgt_dialect \
+                and root_piece is not None:
+            piece, assist_info = root_piece, "Initial dialect translation"
+        elif piece is None:
             history, sys_prompt, user_prompt = list(), None, None
             piece, assist_info, judge_raw = self.model_judge(root_node, all_pieces, self.src_sql, current_sql,
                                                              last_time_piece, history, sys_prompt,
