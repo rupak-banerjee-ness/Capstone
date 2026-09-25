@@ -51,12 +51,9 @@ setup(
         # "torchaudio",
         "accelerate>=0.26.0",
     ],
-    author="code4DB",
-    author_email="weizhoudb@gmail.com",
     description="Seamless translation over multiple dialect by large language model (LLM).",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/code4DB/CrackSQL",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

@@ -1,11 +1,11 @@
-//复制文本
+// copy text
 import useClipboard from 'vue-clipboard3'
 import { ElMessage } from 'element-plus'
 
-// i18n language  match title
+// i18n language match title
 import { i18n } from '@/lang'
-// the keys using  zh file
-import langEn from '@/lang/zh'
+// the keys using the en file
+import langEn from '@/lang/en'
 import settings from '@/settings'
 
 export const sleepTimeout = (time) => {
@@ -17,16 +17,16 @@ export const sleepTimeout = (time) => {
   })
 }
 
-//深拷贝
+// deep clone
 export function cloneDeep(value) {
   return JSON.parse(JSON.stringify(value))
 }
 
-//copyValueToClipboard
+// copyValueToClipboard
 const { toClipboard } = useClipboard()
 export const copyValueToClipboard = (value) => {
   toClipboard(JSON.stringify(value))
-  ElMessage.success('复制成功')
+  ElMessage.success('Copied successfully')
 }
 const { t, te } = i18n.global
 export const langTitle = (title) => {

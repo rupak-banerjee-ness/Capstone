@@ -1,6 +1,6 @@
 <template>
   <div class="import-container">
-    <!-- 顶部返回按钮和标题 -->
+    <!-- top back button and title -->
     <div class="header">
       <div class="columnSS" style="width: 100%;">
         <div v-if="currentStep === 1" class="rowSC">
@@ -15,16 +15,16 @@
       </div>
     </div>
 
-    <!-- 步骤条 -->
+    <!-- step indicator -->
     <el-steps :active="currentStep" finish-status="success" class="steps" align-center>
       <el-step :title="$t('knowledge.detail.steps.selectFile')" />
       <el-step :title="$t('knowledge.detail.steps.process')" />
       <el-step :title="$t('knowledge.detail.steps.addQueue')" />
     </el-steps>
 
-    <!-- 文件上传区域 -->
+    <!-- file upload area -->
     <div class="main-content">
-      <!-- 第一步：选择文件 -->
+      <!-- step 1: select file -->
       <div v-if="currentStep === 1">
         <el-upload
           ref="uploadRef"
@@ -50,7 +50,7 @@
           </div>
         </el-upload>
 
-        <!-- 文件解析进度 -->
+        <!-- file parsing progress -->
         <div v-if="fileList.length > 0" class="file-list">
           <div class="file-list-header">
             <div class="file-name">{{ $t('knowledge.import.fileList.name') }}</div>
@@ -80,7 +80,7 @@
         </div>
       </div>
 
-      <!-- 第二步：数据处理 -->
+      <!-- step 2: data processing -->
       <div v-if="currentStep === 2">
         <div v-if="jsonItems.length > 0" class="json-preview">
           <div class="preview-header">
@@ -121,7 +121,7 @@
             </el-card>
           </div>
 
-          <!-- 分页器 -->
+          <!-- pagination -->
           <div class="pagination-container">
             <el-pagination
               v-model:current-page="currentPage"
@@ -136,7 +136,7 @@
         </div>
       </div>
 
-      <!-- 第三步：添加任务队列 -->
+      <!-- step 3: add to task queue -->
       <div v-if="currentStep === 3" class="process-container">
         <div class="process-content">
           <div class="rowCC" style="width: 100%">
@@ -151,7 +151,7 @@
       </div>
     </div>
 
-    <!-- 底部按钮 -->
+    <!-- bottom button -->
     <div class="footer rowEC" style="width: 100%; margin-top: 20px;">
       <el-button
         type="primary"
@@ -164,7 +164,7 @@
       </el-button>
     </div>
 
-    <!-- 编辑对话框 -->
+    <!-- edit dialog -->
     <el-dialog
       v-model="editDialogVisible"
       :title="editDialogIsPreview ? 'Preview' : 'Edit'"
@@ -213,12 +213,12 @@ interface JsonItem {
   [key: string]: any
 }
 
-// 添加el-upload的文件类型
+// el-upload's file type
 interface UploadFile extends File {
   raw: File
 }
 
-// 修改 jsonItems 的类型声明
+// jsonItems type declaration
 const jsonItems = ref<JsonItem[]>([])
 const uploading = ref(false)
 const currentStep = ref(1)
@@ -226,30 +226,30 @@ const countdown = ref(3)
 const fileList = ref<any[]>([])
 const editDialogIsPreview = ref(false)
 
-// 添加分页相关的响应式变量
+// pagination-related reactive variables
 const currentPage = ref(1)
 const pageSize = ref(10)
 const totalItems = computed(() => jsonItems.value.length)
 
-// 计算当前页的数据
+// compute current page data
 const paginatedItems = computed(() => {
   const start = (currentPage.value - 1) * pageSize.value
   const end = start + pageSize.value
   return jsonItems.value.slice(start, end)
 })
 
-// 处理页码改变
+// handle page number change
 const handlePageChange = (page: number) => {
   currentPage.value = page
 }
 
-// 处理每页条数改变
+// handle page size change
 const handleSizeChange = (size: number) => {
   pageSize.value = size
   currentPage.value = 1
 }
 
-// 是否可以进行下一步
+// whether the next step can proceed
 const canProceed = computed(() => {
   switch (currentStep.value) {
     case 1:
@@ -263,7 +263,7 @@ const canProceed = computed(() => {
   }
 })
 
-// 按钮文字
+// button text
 const getButtonText = computed(() => {
   switch (currentStep.value) {
     case 1:
@@ -277,19 +277,19 @@ const getButtonText = computed(() => {
   }
 })
 
-// 处理文件数量超出限制
+// handle file count exceeding the limit
 const handleExceed = () => {
   ElMessage.warning(i18n.t('knowledge.import.upload.exceed'))
 }
 
-// 处理文件移除前的操作
+// handle actions before a file is removed
 const handleFileRemove = (file: any) => {
   const index = fileList.value.indexOf(file)
   if (index !== -1) {
-    // 从总数据中移除该文件的数据
+    // remove this file's data from the overall dataset
     const removedFile = fileList.value[index]
     if (removedFile.items && removedFile.items.length > 0) {
-      // 从jsonItems中移除该文件的所有数据
+      // remove all of this file's data from jsonItems
       jsonItems.value = jsonItems.value.filter(item => !removedFile.items.includes(item))
     }
     fileList.value.splice(index, 1)
@@ -297,17 +297,17 @@ const handleFileRemove = (file: any) => {
   return true
 }
 
-// 处理文件选择
+// handle file selection
 const handleFileChange = async (file: UploadFile) => {
   if (!file) return
 
-  // 检查文件类型
+  // check file type
   if (!file.name.endsWith('.json')) {
-    ElMessage.error('请上传JSON格式文件')
+    ElMessage.error('Please upload a JSON file')
     return
   }
 
-  // 添加文件到列表
+  // add file to the list
   const fileItem = {
     name: file.name,
     raw: file.raw,
@@ -318,21 +318,21 @@ const handleFileChange = async (file: UploadFile) => {
   }
   fileList.value.push(fileItem)
 
-  // 读取文件内容
+  // read file contents
   const reader = new FileReader()
   reader.onload = (e) => {
     try {
       const content = JSON.parse(e.target?.result as string)
       const items = Array.isArray(content) ? content : [content]
 
-      // 更新文件列表
+      // update file list
       fileList.value = fileList.value.map(f =>
         f.name === file.name
           ? { ...f, parseProgress: 100, parseStatus: 'success', itemCount: items.length, items }
           : f
       )
 
-      // 合并到总的items中
+      // merge into overall items
       jsonItems.value = fileList.value.reduce((acc, file) => {
         if (file.items && Array.isArray(file.items)) {
           return [...acc, ...file.items]
@@ -345,39 +345,39 @@ const handleFileChange = async (file: UploadFile) => {
           ? { ...f, parseProgress: 100, parseStatus: 'exception' }
           : f
       )
-      ElMessage.error(`${file.name}: JSON文件解析失败`)
-      console.error('JSON解析错误:', error)
+      ElMessage.error(`${file.name}: failed to parse JSON file`)
+      console.error('JSON parse error:', error)
     }
   }
   reader.readAsText(file.raw as Blob)
 }
 
-// 删除文件
+// delete file
 const handleRemoveFile = (index: number) => {
   const removedFile = fileList.value[index]
   if (removedFile.items && removedFile.items.length > 0) {
-    // 从jsonItems中移除该文件的所有数据
+    // remove all of this file's data from jsonItems
     jsonItems.value = jsonItems.value.filter(item => !removedFile.items.includes(item))
   }
   fileList.value.splice(index, 1)
 }
 
-// 删除某一项
+// delete a single item
 const handleDeleteItem = (index: number) => {
   jsonItems.value.splice(index, 1)
 }
 
-// 处理下一步
+// handle next step
 const handleNextStep = async () => {
   if (currentStep.value === 2) {
-    // 第二步点击上传
+    // upload clicked on step 2
     await handleUpload()
   } else if (currentStep.value < 3) {
     currentStep.value++
   }
 }
 
-// 上传数据到知识库
+// upload data to the knowledge base
 const handleUpload = async () => {
   if (jsonItems.value.length === 0) {
     ElMessage.warning('Please select data to upload first')
@@ -392,7 +392,7 @@ const handleUpload = async () => {
       const vectorizeRes = await vectorizeKnowledgeBaseItemsReq(route.query.kb_name as string, itemIds)
       if (vectorizeRes.data.status === true) {
         currentStep.value = 3
-        // 倒计时后返回
+        // navigate back after countdown
         const timer = setInterval(() => {
           countdown.value--
           if (countdown.value <= 0) {
@@ -418,7 +418,7 @@ const currentEditItem = ref<JsonItem | null>(null)
 const currentEditIndex = ref(-1)
 const jsonEditString = ref('')
 
-// 处理预览
+// handle preview
 const handlePreview = (index: number) => {
   currentEditIndex.value = index
   currentEditItem.value = jsonItems.value[index]
@@ -427,7 +427,7 @@ const handlePreview = (index: number) => {
   editDialogVisible.value = true
 }
 
-// 处理编辑
+// handle edit
 const handleEdit = (index: number) => {
   currentEditIndex.value = index
   currentEditItem.value = jsonItems.value[index]
@@ -436,7 +436,7 @@ const handleEdit = (index: number) => {
   editDialogVisible.value = true
 }
 
-// 保存编辑
+// save edit
 const handleSaveEdit = () => {
   try {
     const parsedJson = JSON.parse(jsonEditString.value)
@@ -449,7 +449,7 @@ const handleSaveEdit = () => {
   }
 }
 
-// 格式化值的显示
+// format the displayed value
 const formatValue = (value: any): string => {
   if (value === null || value === undefined) {
     return '-'
@@ -631,7 +631,7 @@ const formatValue = (value: any): string => {
   font-weight: bold;
 }
 
-/* 编辑输入框样式 */
+/* edit input style */
 .edit-input {
   transition: all 0.3s ease;
 }
@@ -649,14 +649,14 @@ const formatValue = (value: any): string => {
   min-height: 60px;
 }
 
-/* 输入框焦点样式 */
+/* input focus style */
 .edit-input:deep(.el-input__inner:focus),
 .edit-input:deep(.el-textarea__inner:focus) {
   transform: scale(1.02);
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* 表格单元格样式 */
+/* table cell style */
 :deep(.el-table__cell) {
   padding: 12px !important;
 }

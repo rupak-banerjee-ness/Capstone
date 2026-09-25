@@ -11,18 +11,18 @@ import { isExternal } from '@/hooks/use-layout'
 const props = defineProps({
   to: { type: String, required: true }
 })
-//判断是否时外链，true: 使用 <a/>标签， false: <router-link/>
+//check whether it's an external link, true: use the <a/> tag, false: <router-link/>
 const type = computed(() => {
   if (isExternal(props.to)) return 'a'
   return 'router-link'
 })
-//判断是否时外链，true: 返回 <a/>标签跳转属性， false: 直接使用当前路径
+//check whether it's an external link, true: return the <a/> tag jump attributes, false: use the current path directly
 const linkProps = (to) => {
   if (isExternal(props.to)) {
     return {
       href: to,
       target: '_blank',
-      //没有rel=“noopener noreferrer”的情况下使用target=“_blank”是有安全风险，超链接a标签的rel="noopener noreferrer"属性是一种新特性，它能让网站更安全
+      //using target="_blank" without rel="noopener noreferrer" is a security risk; rel="noopener noreferrer" on <a> tags makes the site safer
       rel: 'noopener'
     }
   }

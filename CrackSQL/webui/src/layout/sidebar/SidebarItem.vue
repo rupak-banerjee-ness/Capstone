@@ -31,17 +31,17 @@ import Link from './Link.vue'
 import { useI18n } from '@/hooks/use-i18n'
 
 const props = defineProps({
-  //每一个router Item
+  //each router Item
   item: {
     type: Object,
     required: true
   },
-  //用于判断是不是激活样式
+  //used to judge whether it's the active style
   activePath: {
     type: String,
     default: ''
   },
-  //基础路径，用于拼接
+  //base path, used for concatenation
   basePath: {
     type: String,
     default: ''
@@ -50,7 +50,7 @@ const props = defineProps({
 
 const i18n = useI18n()
 
-//显示sidebarItem 的情况
+//condition for showing sidebarItem
 const onlyOneChild = ref()
 const showSidebarItem = (children = [], parent) => {
   const showingChildren = children.filter((item: RouteRawConfig) => {

@@ -1,23 +1,23 @@
 <template>
   <div class="navbar rowBC reset-el-dropdown">
     <div class="rowSC">
-      <!--  切换sidebar按钮  -->
+      <!--  toggle sidebar button  -->
       <hamburger
         v-if="settings.showHamburger"
         :is-active="sidebar.opened"
         class="hamburger-container"
         @toggleClick="toggleSideBar"
       />
-      <!--  面包屑导航  -->
+      <!--  breadcrumb navigation  -->
       <breadcrumb class="breadcrumb-container" />
     </div>
-    <!--导航标题-->
+    <!--nav title-->
     <div v-if="settings.showNavbarTitle" class="heardCenterTitle">{{ $t('layout.title') }}</div>
-    <!-- 下拉操作菜单 -->
+    <!-- dropdown action menu -->
     <div v-if="settings.ShowDropDown" class="right-menu rowSC">
       <el-dropdown trigger="click" size="medium">
         <div class="avatar-wrapper">
-          <img src="https://github.jzfai.top/file/images/nav-right-logo.gif" class="user-avatar" />
+          <img src="@/assets/avatar.jpg" class="user-avatar" />
           <CaretBottom style="width: 1em; height: 1em; margin-left: 4px" />
         </div>
         <template #dropdown>
@@ -25,10 +25,7 @@
             <router-link to="/">
               <el-dropdown-item>{{ $t('layout.navbar.home') }}</el-dropdown-item>
             </router-link>
-            <a target="_blank" href="https://github.com/jzfai/vue3-admin-template">
-              <el-dropdown-item>{{ $t('layout.navbar.github') }}</el-dropdown-item>
-            </a>
-            <!--<el-dropdown-item>修改密码</el-dropdown-item>-->
+            <!--<el-dropdown-item>Change Password</el-dropdown-item>-->
             <el-dropdown-item divided @click="loginOut">{{ $t('layout.navbar.loginOut') }}</el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -55,7 +52,7 @@ const { settings, sidebar, setToggleSideBar } = basicStore
 const toggleSideBar = () => {
   setToggleSideBar()
 }
-//退出登录
+//log out
 const router = useRouter()
 const i18n = useI18n()
 const loginOut = () => {

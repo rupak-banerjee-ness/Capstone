@@ -1,5 +1,5 @@
 /**
- * 判断是否是外链
+ * Check whether a path is an external link
  * @param {string} path
  * @returns {Boolean}
  */
@@ -9,7 +9,7 @@ export function isExternal(path) {
   return /^(https?:|mailto:|tel:)/.test(path)
 }
 
-/*判断窗口变化控制侧边栏收起或展开*/
+/* judge window size changes to control sidebar collapse/expand */
 export function resizeHandler() {
   const { body } = document
   const WIDTH = 992

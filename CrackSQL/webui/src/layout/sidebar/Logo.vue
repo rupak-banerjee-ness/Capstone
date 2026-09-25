@@ -12,7 +12,7 @@ import { useBasicStore } from '@/store/basic'
 import SvgIcon from '@/icons/SvgIcon.vue'
 const { settings } = useBasicStore()
 defineProps({
-  //是否折叠
+  //whether it's collapsed
   collapse: {
     type: Boolean,
     required: true
@@ -28,7 +28,7 @@ const { title, logo } = toRefs(state)
 </script>
 
 <style lang="scss">
-//vue3.0 过度效果更改  enter-> enter-from   leave-> leave-from
+//vue3.0 transition effect change  enter-> enter-from   leave-> leave-from
 .sidebar-logo-container {
   position: relative;
   width: 50px;

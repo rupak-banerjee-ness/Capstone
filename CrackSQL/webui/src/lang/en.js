@@ -7,7 +7,6 @@ export default {
   dashboard: {
     title: 'SQL Dialect Translator',
     subtitle: 'Making cross-database migration simple and efficient',
-    github: 'View on GitHub',
     operation: {
       title: 'Start Conversation',
       subtitle: 'Select model and database to start your SQL dialect rewrite journey',
@@ -66,7 +65,6 @@ export default {
   layout: {
     navbar: {
       home: 'Home',
-      github: 'Github',
       loginOut: 'Log Out',
       logoutSuccess: 'Logout successful'
     },
@@ -88,9 +86,6 @@ export default {
         collapse: 'Collapse Sidebar',
         expand: 'Expand Sidebar',
         newChat: 'Start New Translation',
-        feedback: 'We look forward to your feedback!',
-        github: 'Visit Github and give us a Star! Your encouragement drives us forward! 🎉🎉🎉',
-        language: 'Switch Language',
         theme: 'Switch Theme',
         logoutConfirm: 'Are you sure you want to log out?'
       }
@@ -109,21 +104,6 @@ export default {
       knowledge: 'Manage knowledge base',
       database: 'Configure target database',
       models: 'Configure LLM and Embedding models'
-    }
-  },
-  sidebar: {
-    logo: {
-      title: 'SQL Dialect Rewrite'
-    },
-    tooltip: {
-      collapse: 'Collapse Sidebar',
-      expand: 'Expand Sidebar',
-      newChat: 'Start New Chat',
-      feedback: 'We look forward to your feedback!',
-      github: 'Visit Github and give us a Star! Your encouragement drives us forward! 🎉🎉🎉',
-      language: 'Switch Language',
-      theme: 'Switch Theme',
-      logoutConfirm: 'Are you sure you want to log out?'
     }
   },
   history: {

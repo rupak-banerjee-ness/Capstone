@@ -3,10 +3,10 @@ import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer'
 const modulesFiles = import.meta.glob('../mock/*', { eager: true })
 let modules = []
 for (const filePath in modulesFiles) {
-  //读取文件内容到 modules
+  // read file contents into modules
   modules = modules.concat(modulesFiles[filePath].default)
 }
 export function setupProdMockServer() {
-  //创建prod mock server
+  // create prod mock server
   createProdMockServer([...modules])
 }

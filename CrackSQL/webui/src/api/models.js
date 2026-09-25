@@ -1,7 +1,7 @@
 import axiosReq from '@/utils/axios-req'
 
 
-// 获取所有的embed模型
+// Get all embedding models
 export const embeddingModelsReq = () => {
   return axiosReq({
     url: '/api/llm_model/llm_models',
@@ -13,7 +13,7 @@ export const embeddingModelsReq = () => {
   })
 }
 
-// 获取所有的LLM模型
+// Get all LLM models
 export const llmModelsReq = (params) => {
   return axiosReq({
     url: '/api/llm_model/llm_models',
@@ -26,7 +26,7 @@ export const llmModelsReq = (params) => {
   })
 }
 
-// 创建LLM模型
+// Create LLM model
 export function createLLMModelReq(data) {
   return axiosReq({
     url: '/api/llm_model/create',
@@ -35,7 +35,7 @@ export function createLLMModelReq(data) {
   })
 }
 
-// 更新LLM模型
+// Update LLM model
 export function updateLLMModelReq(data) {
   return axiosReq({
     url: '/api/llm_model/update',
@@ -44,7 +44,7 @@ export function updateLLMModelReq(data) {
   })
 }
 
-// 删除LLM模型
+// Delete LLM model
 export function deleteLLMModelReq(id) {
   return axiosReq({
     url: '/api/llm_model/delete',

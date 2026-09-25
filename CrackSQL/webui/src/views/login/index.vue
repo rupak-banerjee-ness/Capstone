@@ -164,7 +164,7 @@ $light_gray: #eee;
   width: 30px;
 }
 
-//错误提示信息
+//error message hint
 .tip-message {
   color: #e4393c;
   height: 30px;
@@ -172,7 +172,7 @@ $light_gray: #eee;
   font-size: 12px;
 }
 
-//登录按钮
+//login button
 .login-btn {
   width: 100%;
   margin-bottom: 30px;
@@ -187,7 +187,7 @@ $light_gray: #eee;
 </style>
 
 <style lang="scss">
-//css 样式重置 增加个前缀避免全局污染
+//css style reset, added a prefix to avoid global pollution
 .login-container {
   .el-input__wrapper {
     background-color: transparent;
@@ -206,7 +206,7 @@ $light_gray: #eee;
     border-radius: 0px;
     padding: 10px 5px 10px 15px;
     color: #fff;
-    height: 42px; //此处调整item的高度
+    height: 42px; //adjust the item height here
     caret-color: #fff;
   }
   //hiden the input border

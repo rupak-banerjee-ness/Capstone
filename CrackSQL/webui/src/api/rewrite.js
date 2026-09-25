@@ -1,6 +1,6 @@
 import axiosReq from '@/utils/axios-req'
 
-// 获取改写列表
+// Get rewrite list
 export const rewriteListReq = (pageSize = 20, page = 0, keyword = '') => {
   return axiosReq({
     url: 'api/rewrite/list',
@@ -13,7 +13,7 @@ export const rewriteListReq = (pageSize = 20, page = 0, keyword = '') => {
   })
 }
 
-// 获取改写详情
+// Get rewrite detail
 export const rewriteDetailReq = (id) => {
   return axiosReq({
     url: `api/rewrite/detail`,
@@ -22,7 +22,7 @@ export const rewriteDetailReq = (id) => {
   })
 }
 
-// 获取最近一次改写
+// Get most recent rewrite
 export const rewriteLatestReq = () => {
   return axiosReq({
     url: 'api/rewrite/latest',
@@ -30,7 +30,7 @@ export const rewriteLatestReq = () => {
   })
 }
 
-// 创建改写历史
+// Create rewrite history
 export const createRewriteReq = (data) => {
   return axiosReq({
     url: 'api/rewrite/create',
@@ -39,7 +39,7 @@ export const createRewriteReq = (data) => {
   })
 }
 
-// 停止改写任务
+// Stop rewrite task
 export const stopRewriteReq = (data) => {
   return axiosReq({
     url: 'api/rewrite/stop',
@@ -48,7 +48,7 @@ export const stopRewriteReq = (data) => {
   })
 }
 
-// 删除改写历史
+// Delete rewrite history
 export const deleteRewriteReq = (id) => {
   return axiosReq({
     url: 'api/rewrite/delete',

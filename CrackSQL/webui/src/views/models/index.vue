@@ -159,7 +159,7 @@
         </div>
       </el-tab-pane>
     </el-tabs>
-    <!-- LLM模型表单对话框 -->
+    <!-- LLM model form dialog -->
     <el-dialog v-model="dialogVisible" :title="modelForm.id ? $t('models.dialog.edit') : $t('models.dialog.add')" width="80%">
       <el-form ref="formRef" size="default" :model="modelForm" :rules="modelRules" label-width="auto" label-position="right">
         <el-form-item :label="$t('models.form.name')" prop="name">
@@ -220,7 +220,7 @@ import {useI18n} from '@/hooks/use-i18n'
 
 const i18n = useI18n()
 
-// 状态变量
+// state variables
 const activeTab = ref('llm')
 const llmLoading = ref(false)
 const embeddingLoading = ref(false)
@@ -230,23 +230,23 @@ const dialogVisible = ref(false)
 const formSubmitting = ref(false)
 const formRef = ref()
 
-// 统一的表单数据结构
+// unified form data structure
 const modelForm = reactive({
   id: null,
   name: '',
-  deployment_type: 'cloud',  // 默认云端模型
-  category: 'llm',  // 默认LLM类型
+  deployment_type: 'cloud',  // default cloud model
+  category: 'llm',  // default LLM type
   path: '',
   api_base: '',
   api_key: '',
   temperature: 0.7,
   max_tokens: 2000,
-  dimension: 768,  // embedding模型需要
+  dimension: 768,  // required for embedding models
   description: '',
   is_active: true
 })
 
-// 统一的表单验证规则
+// unified form validation rules
 const modelRules = {
   name: [
     {required: true, message: i18n.t('models.rules.name.required'), trigger: 'blur'},
@@ -266,7 +266,7 @@ const modelRules = {
   ]
 }
 
-// 统一的处理方法
+// unified handling methods
 const handleCreate = () => {
   const category = activeTab.value
   Object.assign(modelForm, {
@@ -314,7 +314,7 @@ const handleStatusChange = async (row) => {
     })
     await fetchModels()
   } catch (error) {
-    ElMessage.error(error.message || '更新状态失败')
+    ElMessage.error(error.message || 'Failed to update status')
   }
 }
 
@@ -343,7 +343,7 @@ const handleSubmit = async () => {
   })
 }
 
-// 统一的数据获取方法
+// unified data fetching method
 const fetchModels = async () => {
   const category = activeTab.value
   const loading = category === 'llm' ? llmLoading : embeddingLoading
@@ -364,12 +364,12 @@ const fetchModels = async () => {
   }
 }
 
-// 监听标签页切换
+// watch tab switching
 watch(activeTab, () => {
   fetchModels()
 })
 
-// 生命周期钩子
+// lifecycle hook
 onMounted(() => {
   fetchModels()
 })

@@ -13,7 +13,7 @@ defineProps({
   }
 })
 const emit = defineEmits(['toggleClick'])
-//切换左侧栏关闭和隐藏
+// toggle the sidebar closed/hidden state
 const toggleClick = () => {
   emit('toggleClick')
 }

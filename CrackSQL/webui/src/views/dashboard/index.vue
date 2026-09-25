@@ -7,12 +7,6 @@
           <h1>{{ $t('dashboard.title') }}</h1>
           <p>{{ $t('dashboard.subtitle') }}</p>
         </div>
-        <a id="github" href="https://github.com/your-repo" target="_blank" class="github-link">
-          <el-icon>
-            <Link/>
-          </el-icon>
-          {{ $t('dashboard.github') }}
-        </a>
       </div>
     </div>
 
@@ -253,7 +247,7 @@ import {knowledgeListReq} from '@/api/knowledge'
 import DatabaseConfigForm from '@/components/DatabaseConfigForm.vue';
 import type {DatabaseConfig} from "@/types/database";
 import {llmModelsReq} from '@/api/models'
-import {Connection, Document, Link, Monitor, Search} from '@element-plus/icons-vue'
+import {Connection, Document, Monitor, Search} from '@element-plus/icons-vue'
 import {ElMessage} from "element-plus";
 import {computed, onMounted, reactive, ref} from 'vue'
 import {useRouter} from 'vue-router'
@@ -514,23 +508,6 @@ const useExample = (exampleSql) => {
     color: #666;
   }
 
-  .github-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border-radius: 6px;
-    background: #24292e;
-    color: white;
-    text-decoration: none;
-    font-size: 0.9em;
-    transition: all 0.3s ease;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-  }
 }
 
 .main-section {

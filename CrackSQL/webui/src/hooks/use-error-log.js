@@ -1,4 +1,4 @@
-/*js 错误日志收集*/
+/*js error log collection*/
 import { jsErrorCollection } from 'js-error-collection'
 import pack from '../../package.json'
 import settings from '@/settings'
@@ -18,18 +18,18 @@ const errorLogReq = (errLog) => {
     },
     method: 'post'
   }).then(() => {
-    //通知错误列表页面更新数据
+    //notify the error log page to refresh data
     bus.emit('reloadErrorPage', {})
   })
 }
 
 export const useErrorLog = () => {
-  //判断该环境是否需要收集错误日志,由settings配置决定
+  //whether this environment needs to collect error logs, determined by settings config
   if (settings.errorLog?.includes(import.meta.env.VITE_APP_ENV)) {
     jsErrorCollection({ runtimeError: true, rejectError: true, consoleError: true }, (errLog) => {
       if (!repeatErrorLogJudge || !errLog.includes(repeatErrorLogJudge)) {
         errorLogReq(errLog)
-        //移除重复日志，fix重复提交错误日志，避免造成死循环
+        //remove duplicate logs, fix duplicate error log submission, avoid an infinite loop
         repeatErrorLogJudge = errLog.slice(0, 20)
       }
     })

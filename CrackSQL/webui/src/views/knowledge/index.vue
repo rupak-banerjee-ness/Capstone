@@ -79,7 +79,7 @@
         </div>
         <div class="knowledge-footer">
           <el-button text type="primary" size="small">
-            查看详情
+            View Details
             <el-icon>
               <ArrowRight/>
             </el-icon>
@@ -135,7 +135,7 @@ const getKnowledgeList = async () => {
     const res = await knowledgeListReq()
     knowledgeList.value = res.data
   } catch (error) {
-    console.error('获取知识库列表失败:', error)
+    console.error('Failed to get knowledge base list:', error)
   }
 }
 

@@ -1,6 +1,6 @@
 import axiosReq from '@/utils/axios-req'
 
-//获取知识库列表
+//Get knowledge base list
 export const knowledgeListReq = () => {
     return axiosReq({
         url: '/api/knowledge_base/list',
@@ -9,7 +9,7 @@ export const knowledgeListReq = () => {
     })
 }
 
-// 搜索知识库内的文件
+// Search documents within a knowledge base
 export const knowledgeSearchDocsReq = (kbName, query) => {
     return axiosReq({
         url: '/api/knowledge_base/search',
@@ -20,7 +20,7 @@ export const knowledgeSearchDocsReq = (kbName, query) => {
 }
 
 
-// 获取知识库详情
+// Get knowledge base detail
 export const knowledgeBaseDetailReq = (knowledgeBaseName) => {
     return axiosReq({
         url: '/api/knowledge_base/detail',
@@ -29,7 +29,7 @@ export const knowledgeBaseDetailReq = (knowledgeBaseName) => {
     })
 }
 
-// 更新知识库
+// Update knowledge base
 export const knowledgeBaseUpdateInfoReq = (knowledgeBaseName, info, kbId) => {
     return axiosReq({
         url: '/api/knowledge_base/update',
@@ -38,7 +38,7 @@ export const knowledgeBaseUpdateInfoReq = (knowledgeBaseName, info, kbId) => {
     })
 }
 
-// 删除知识库
+// Delete knowledge base
 export const knowledgeBaseDeleteReq = (kbName) => {
     return axiosReq({
         url: '/api/knowledge_base/delete',
@@ -47,7 +47,7 @@ export const knowledgeBaseDeleteReq = (kbName) => {
     })
 }
 
-// 创建知识库
+// Create knowledge base
 export const createKnowledgeBaseReq = (knowledgeBaseName, info, embeddingModelName, dbType) => {
     return axiosReq({
         url: '/api/knowledge_base/create',

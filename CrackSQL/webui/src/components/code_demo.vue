@@ -1,9 +1,9 @@
 <template>
-  <div>vue3推荐模板可以集成在你们的vscode或webstorm中，有助于快速开发</div>
+  <div>The vue3 recommended template can be integrated into your vscode or webstorm to help speed up development</div>
 </template>
 
 <script setup>
-// 获取store和router
+// get store and router
 
 const props = defineProps({
   name: {
@@ -26,14 +26,14 @@ watch(
 
 const router = useRouter()
 onMounted(() => {
-  console.log('页面挂载了')
+  console.log('page mounted')
 })
 const helloFunc = () => {
   console.log('helloFunc')
 }
-// 导出给父元素使用
+// export for use by the parent element
 defineExpose({helloFunc})
-// 导出属性到页面中使用
+// export properties for use in the page
 const {levelList} = toRefs(state)
 </script>
 

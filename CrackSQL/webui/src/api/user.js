@@ -12,7 +12,7 @@ import axiosReq from '@/utils/axios-req'
 //   })
 // }
 
-//登录
+//Log in
 export const loginReq = (subForm) => {
   return axiosReq({
     url: 'api/user/login',
@@ -21,7 +21,7 @@ export const loginReq = (subForm) => {
   })
 }
 
-//退出登录
+//Log out
 export const loginOutReq = () => {
   return axiosReq({
     url: 'api/user/out',

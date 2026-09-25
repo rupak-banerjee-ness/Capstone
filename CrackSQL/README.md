@@ -6,22 +6,11 @@
   <b>📄 Unlock seamless SQL translation – effortless, precise, and efficient across databases~ 🐬</b>
 </p>
 
-<div align="center">
-
-  <a>![Dialect](https://img.shields.io/badge/SQL%20Dialect-3+24-blue?style=flat-square)</a>
-  <a>![Benchmark](https://img.shields.io/badge/Translation%20Benchmark-501+-blue?style=flat-square)</a>
-  <a>![LLM](https://img.shields.io/badge/Finetuned%20LLM-4-green?style=flat-square)</a>
-  <a>![Embedding Model](https://img.shields.io/badge/Finetuned%20Embedding%20Model-3-green?style=flat-square)</a>
-
-</div>
-
 <p align="center">
   <a href="#-demo">Demo</a> •
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-feature-extension">Feature Extension</a> • 
   <a href="#-faq">FAQ</a> •  
-  <a href="#-community">Community</a> •  
-  <a href="#-contributors">Contributors</a> •  
   <a href="#-license">License</a>
 </p>
 
@@ -29,21 +18,10 @@
   <b>English</b> | <a href="./README_ZH.md">简体中文</a>
 </p>
 
-<p align="center">
-  <b>Star ⭐ and subscribe 🔔 for the latest features and improvements!</b>
-</p>
-
 ## ✨ Project Introduction
 
 CrackSQL is a powerful SQL dialect translation tool that integrates rule-based strategies with LLMs for high accuracy.
 It enables seamless conversion between dialects (e.g., PostgreSQL → MySQL) with flexible access through Python API, command line, and web interface.
-
-> - **03/2026:** Our demo paper "*CrackSQL: A Hybrid SQL Dialect Translation System Powered by Large Language Models*" has been accepted by [SIGMOD 2026](https://arxiv.org/abs/2504.00882)! :tada: :tada: :tada:
-> - **09/2025:** Our newly-developed benchmark PARROT (i.e., the first SQL-to-SQL benchmark) has been accepted by [NeurIPS 2025]() ! Welcome your submission to challenge [our leaderboard](https://code4db.github.io/parrot-bench/)! :crossed_swords: :trophy: :1st_place_medal:
-> - **06/2025:** We have been invited by the Ploutos community to present CrackSQL at their  [livestream event](https://app.ploutos.dev/streams/literate-cobra)! 🎥
-> - **04/2025:** We have released our demo paper about this project that can be found [online](https://arxiv.org/abs/2504.00882)! 📚
-> - **03/2025:** We have refactored the code and released our project across multiple open-source platforms ([PyPI](https://pypi.org/project/cracksql/0.0.0b0/)). We are currently working on [new features](#todo) and more contributors are welcomed! :wave: 👫
-> - **02/2025:** Our paper "*Cracking SQL Barrier: An LLM-based Dialect Translation System*" has been accepted by [SIGMOD 2025](https://dl.acm.org/doi/10.1145/3725278)! :tada: :tada: :tada:
 
 ## 📚 Features
 
@@ -254,7 +232,7 @@ if __name__ == "__main__":
 #### 1. Clone Repository
 
 ```bash
-git clone https://github.com/weAIDB/CrackSQL.git
+git clone <this-repository-url>
 ```
 
 #### 2. Use Frontend and Backend Application
@@ -405,40 +383,6 @@ For more detailed information, please refer to the [*Feature Extension*](#extens
 ## 👫 Community
 
 We deeply appreciate the invaluable effort contributed by our dedicated team of developers, supportive users, and esteemed industry partners.
-
-<a href="https://enmotech.com/"><img src="https://obs-emcsapp-public.obs.cn-north-4.myhwclouds.com/image%2Fcompanylogo_1579397843740.jpg" height=48pt></a>
-<a href="https://www.bytedance.com/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/ByteDance_logo_English.svg/1200px-ByteDance_logo_English.svg.png" height=30pt></a>
-
-
-## 📒 Citation
-
-If you like this project, please cite our paper:
-
-```
-@article{zhou2025cracksql,
-  author       = {Wei Zhou and
-                  Yuyang Gao and
-                  Xuanhe Zhou and
-                  Guoliang Li},
-  title        = {{Cracking SQL Barriers:} {An}  LLM-based Dialect Transaltion System},
-  journal      = {Proc. {ACM} Manag. Data},
-  volume       = {3},
-  number       = {3 (SIGMOD)},
-  year         = {2025}
-}
-
-@article{zhou2025cracksqldemo,
-  author       = {Wei Zhou and
-                  Yuyang Gao and
-                  Xuanhe Zhou and
-                  Guoliang Li},
-  title        = {CrackSQL: A Hybrid SQL Dialect Translation System Powered by Large Language Models},
-  journal      = {arXiv Preprint},
-  url       = {https://arxiv.org/abs/2504.00882},
-  year         = {2025}
-}
-```
-
 
 ## 📝 License
 

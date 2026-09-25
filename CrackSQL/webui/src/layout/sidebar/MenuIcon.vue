@@ -1,5 +1,5 @@
 <template>
-  <!-- 如果有 elSvgIcon 显示 elSvgIcon 没有显示 icon-->
+  <!-- show elSvgIcon if present, otherwise show icon -->
   <div>{{ meta.icon }}</div>
 </template>
 

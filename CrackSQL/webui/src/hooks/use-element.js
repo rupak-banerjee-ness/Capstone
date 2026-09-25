@@ -1,58 +1,58 @@
 import { reactive, ref, toRefs } from 'vue'
 import { ElLoading, ElMessage, ElMessageBox, ElNotification } from 'element-plus'
 export const useElement = () => {
-  // 正整数
+  // positive integer
   const upZeroInt = (rule, value, callback, msg) => {
     if (!value) {
-      callback(new Error(`${msg}不能为空`))
+      callback(new Error(`${msg} cannot be empty`))
     }
     if (/^\+?[1-9]\d*$/.test(value)) {
       callback()
     } else {
-      callback(new Error(`${msg}输入有误`))
+      callback(new Error(`${msg} is invalid`))
     }
   }
 
-  // 正整数（包括0）
+  // positive integer (including 0)
   const zeroInt = (rule, value, callback, msg) => {
     if (!value) {
-      callback(new Error(`${msg}不能为空`))
+      callback(new Error(`${msg} cannot be empty`))
     }
     if (/^\+?[0-9]\d*$/.test(value)) {
       callback()
     } else {
-      callback(new Error(`${msg}输入有误`))
+      callback(new Error(`${msg} is invalid`))
     }
   }
 
-  // 金额
+  // amount
   const money = (rule, value, callback, msg) => {
     if (!value) {
-      callback(new Error(`${msg}不能为空`))
+      callback(new Error(`${msg} cannot be empty`))
     }
     if (/((^[1-9]\d*)|^0)(\.\d{0,2}){0,1}$/.test(value)) {
       callback()
     } else {
-      callback(new Error(`${msg}输入有误`))
+      callback(new Error(`${msg} is invalid`))
     }
   }
 
-  // 手机号
+  // phone number
   const phone = (rule, value, callback, msg) => {
     if (!value) {
-      callback(new Error(`${msg}不能为空`))
+      callback(new Error(`${msg} cannot be empty`))
     }
     if (/^0?1[0-9]{10}$/.test(value)) {
       callback()
     } else {
-      callback(new Error(`${msg}输入有误`))
+      callback(new Error(`${msg} is invalid`))
     }
   }
 
-  // 邮箱
+  // email
   const email = (rule, value, callback, msg) => {
     if (!value) {
-      callback(new Error(`${msg}不能为空`))
+      callback(new Error(`${msg} cannot be empty`))
     }
     if (/(^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4}))$/.test(value)) {
       callback()
@@ -65,51 +65,51 @@ export const useElement = () => {
     tableData: [],
     rowDeleteIdArr: [],
     loadingId: null,
-    /* 表单*/
+    /* form*/
     formModel: {},
     subForm: {},
     searchForm: {},
-    /* 表单校验*/
+    /* form validation*/
     formRules: {
-      //非空
+      //not empty
       isNull: (msg) => [{ required: false, message: `${msg}`, trigger: 'blur' }],
       isNotNull: (msg) => [{ required: true, message: `${msg}`, trigger: 'blur' }],
-      // 正整数
+      // positive integer
       upZeroInt: (msg) => [
         { required: true, validator: (rule, value, callback) => upZeroInt(rule, value, callback, msg), trigger: 'blur' }
       ],
-      // 正整数（包括0）
+      // positive integer (including 0)
       zeroInt: (msg) => [
         { required: true, validator: (rule, value, callback) => zeroInt(rule, value, callback, msg), trigger: 'blur' }
       ],
-      // 金额
+      // amount
       money: (msg) => [
         { required: true, validator: (rule, value, callback) => money(rule, value, callback, msg), trigger: 'blur' }
       ],
-      // 手机号
+      // phone number
       phone: (msg) => [
         { required: true, validator: (rule, value, callback) => phone(rule, value, callback, msg), trigger: 'blur' }
       ],
-      // 邮箱
+      // email
       email: (msg) => [
         { required: true, validator: (rule, value, callback) => email(rule, value, callback, msg), trigger: 'blur' }
       ]
     },
-    /* 时间packing相关*/
+    /* date-picker related*/
     datePickerOptions: {
-      //选择今天以后的日期，包括今天
+      //choose dates on or after today
       disabledDate: (time) => {
         return time.getTime() < Date.now() - 86400000
       }
     },
     startEndArr: [],
-    /* dialog相关*/
-    dialogTitle: '添加',
+    /* dialog related*/
+    dialogTitle: 'Add',
     detailDialog: false,
     isDialogEdit: false,
     dialogVisible: false,
     tableLoading: false,
-    /* 树相关*/
+    /* tree related*/
     treeData: [],
     defaultProps: {
       children: 'children',
@@ -122,28 +122,28 @@ export const useElement = () => {
 }
 
 /*
- * 通知弹框
- * message：通知的内容
- * type：通知类型
- * duration：通知显示时长（ms）
+ * notification popup
+ * message: notification content
+ * type: notification type
+ * duration: display duration (ms)
  * */
 export const elMessage = (message, type) => {
   ElMessage({
     showClose: true,
-    message: message || '成功',
+    message: message || 'Success',
     type: type || 'success',
     center: false
   })
 }
 /*
- * loading加载框
- * 调用后通过 loadingId.close() 进行关闭
+ * loading spinner
+ * call loadingId.close() to close it
  * */
 let loadingId = null
 export const elLoading = (msg) => {
   loadingId = ElLoading.service({
     lock: true,
-    text: msg || '数据载入中',
+    text: msg || 'Loading data',
     // spinner: 'el-icon-loading',
     background: 'rgba(0, 0, 0, 0.1)'
   })
@@ -152,57 +152,57 @@ export const closeElLoading = () => {
   loadingId.close()
 }
 /*
- * 提示
- * message: 提示内容
- * type：提示类型
- * title：提示标题
- * duration：提示时长（ms）
+ * notice
+ * message: notice content
+ * type: notice type
+ * title: notice title
+ * duration: notice duration (ms)
  * */
 export const elNotify = (message, type, title, duration) => {
   ElNotification({
-    title: title || '提示',
+    title: title || 'Notice',
     type: type || 'success',
-    message: message || '请传入提示消息',
+    message: message || 'Please provide a notice message',
     position: 'top-right',
     duration: duration || 2500,
     offset: 40
   })
 }
 /*
-  确认弹框(没有取消按钮)
-* title:提示的标题
-* message:提示的内容
+  confirmation dialog (no cancel button)
+* title: dialog title
+* message: dialog content
 * return Promise
 * */
 export const elConfirmNoCancelBtn = (title, message) => {
   return ElMessageBox({
-    message: message || '你确定要删除吗',
-    title: title || '确认框',
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
+    message: message || 'Are you sure you want to delete this?',
+    title: title || 'Confirm',
+    confirmButtonText: 'Confirm',
+    cancelButtonText: 'Cancel',
     showCancelButton: false,
     type: 'warning'
   })
 }
 /*
- * 确认弹框
- * title:提示的标题
- * message:提示的内容
+ * confirmation dialog
+ * title: dialog title
+ * message: dialog content
  * return Promise
  * */
 export const elConfirm = (title, message) => {
   return ElMessageBox({
-    message: message || '你确定要删除吗',
-    title: title || '确认框',
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
+    message: message || 'Are you sure you want to delete this?',
+    title: title || 'Confirm',
+    confirmButtonText: 'Confirm',
+    cancelButtonText: 'Cancel',
     type: 'warning'
   })
 }
 
-/* 级联*/
+/* cascader */
 const cascaderKey = ref()
 export const casHandleChange = () => {
-  // 解决目前级联选择器搜索输入报错问题
+  // work around a current search-input error in the cascader selector
   cascaderKey.value += cascaderKey.value
 }

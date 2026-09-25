@@ -8,7 +8,7 @@ export const useTable = (searchForm, selectPageReq) => {
   const pageNum = ref(1)
   const pageSize = ref(20)
 
-  //列表请求
+  // list request
   const tableListReq = (config) => {
     const data = Object.assign(
       {
@@ -32,15 +32,14 @@ export const useTable = (searchForm, selectPageReq) => {
   }
 
   /**
-   * 日期范围选择处理
+   * Date range selection handling
    * @param timeArr choose the time
-   * @author 熊猫哥
    * @date 2022/9/25 14:02
    */
   const dateRangePacking = (timeArr) => {
     if (timeArr && timeArr.length === 2) {
       searchForm.startTime = timeArr[0]
-      //取今天23点
+      // set to 23:00 today
       if (searchForm.endTime) {
         searchForm.endTime = momentMini(timeArr[1]).endOf('day').format('YYYY-MM-DD HH:mm:ss')
       }
@@ -49,7 +48,7 @@ export const useTable = (searchForm, selectPageReq) => {
       searchForm.endTime = ''
     }
   }
-  //当前页
+  // current page
   const handleCurrentChange = (val) => {
     pageNum.value = val
     selectPageReq()
@@ -63,12 +62,12 @@ export const useTable = (searchForm, selectPageReq) => {
     selectPageReq()
   }
 
-  /*多选*/
+  /* multi-select */
   const multipleSelection = ref([])
   const handleSelectionChange = (val) => {
     multipleSelection.value = val
   }
-  /*批量删除*/
+  /* batch delete */
   const multiDelBtnDill = (reqConfig) => {
     let rowDeleteIdArr = []
     let deleteNameTitle = ''
@@ -77,11 +76,11 @@ export const useTable = (searchForm, selectPageReq) => {
       return mItem.id
     })
     if (rowDeleteIdArr.length === 0) {
-      elMessage('表格选项不能为空', 'warning')
+      elMessage('Table selection cannot be empty', 'warning')
       return
     }
     const stringLength = deleteNameTitle.length - 1
-    elConfirm('删除', `您确定要删除【${deleteNameTitle.slice(0, stringLength)}】吗`).then(() => {
+    elConfirm('Delete', `Are you sure you want to delete [${deleteNameTitle.slice(0, stringLength)}]?`).then(() => {
       const data = rowDeleteIdArr
       axiosReq({
         data,
@@ -89,17 +88,17 @@ export const useTable = (searchForm, selectPageReq) => {
         bfLoading: true,
         ...reqConfig
       }).then(() => {
-        elMessage('删除成功')
+        elMessage('Deleted successfully')
         resetPageReq()
       })
     })
   }
-  //单个删除
+  // single delete
   const tableDelDill = (row, reqConfig) => {
-    elConfirm('确定', `您确定要删除【${row.id}】吗？`).then(() => {
+    elConfirm('Confirm', `Are you sure you want to delete [${row.id}]?`).then(() => {
       axiosReq(reqConfig).then(() => {
         resetPageReq()
-        elMessage(`【${row.id}】删除成功`)
+        elMessage(`[${row.id}] deleted successfully`)
       })
     })
   }

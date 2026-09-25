@@ -1,20 +1,20 @@
 import NProgress from 'nprogress'
 /**
- * 根据请求，过滤异步路由
- * @param:menuList 异步路由数组
- * return 过滤后的异步路由
+ * Filter async routes based on the request
+ * @param:menuList array of async routes
+ * return the filtered async routes
  */
 // @ts-ignore
 import Layout from '@/layout/index.vue'
 /*
- * 路由操作
+ * route operations
  * */
 import router, { asyncRoutes, constantRoutes, roleCodeRoutes } from '@/router'
-//进度条
+//progress bar
 import 'nprogress/nprogress.css'
 import { useBasicStore } from '@/store/basic'
 
-const buttonCodes = [] //按钮权限
+const buttonCodes = [] //button permissions
 export const filterAsyncRoutesByMenuList = (menuList) => {
   const filterRouter = []
   menuList.forEach((route) => {
@@ -77,10 +77,10 @@ const getRouteItemFromReqRouter = (route) => {
 }
 
 /**
- * 根据角色数组过滤异步路由
- * @param routes asyncRoutes 未过滤的异步路由
- * @param roles  角色数组
- * return 过滤后的异步路由
+ * Filter async routes based on a role array
+ * @param routes asyncRoutes unfiltered async routes
+ * @param roles  role array
+ * return the filtered async routes
  */
 export function filterAsyncRoutesByRoles(routes, roles) {
   const res = []
@@ -104,10 +104,10 @@ function hasPermission(roles, route) {
 }
 
 /**
- * 根据code数组，过滤异步路由
- * @param codes code数组
- * @param codesRoutes 未过滤的异步路由
- * return 过滤后的异步路由
+ * Filter async routes based on a code array
+ * @param codes code array
+ * @param codesRoutes unfiltered async routes
+ * return the filtered async routes
  */
 export function filterAsyncRouterByCodes(codesRoutes, codes) {
   const filterRouter = []
@@ -126,7 +126,7 @@ function hasCodePermission(codes, routeItem) {
     return true
   }
 }
-//过滤异步路由
+//filter async routes
 export function filterAsyncRouter({ menuList, roles, codes }) {
   const basicStore = useBasicStore()
   let accessRoutes = []
@@ -142,24 +142,24 @@ export function filterAsyncRouter({ menuList, roles, codes }) {
   asyncRoutes.forEach((item) => router.addRoute(item))
   basicStore.setFilterAsyncRoutes(accessRoutes)
 }
-//重置路由
+//reset router
 export function resetRouter() {
-  //移除之前存在的路由
+  //remove previously existing routes
   const routeNameSet = new Set()
   router.getRoutes().forEach((fItem) => {
     if (fItem.name) routeNameSet.add(fItem.name)
   })
   routeNameSet.forEach((setItem) => router.removeRoute(setItem))
-  //新增constantRoutes
+  //add constantRoutes
   constantRoutes.forEach((feItem) => router.addRoute(feItem))
 }
-//重置登录状态
+//reset login state
 export function resetState() {
   resetRouter()
   useBasicStore().resetState()
 }
 
-//刷新路由
+//refresh router
 export function freshRouter(data) {
   resetRouter()
   filterAsyncRouter(data)
@@ -167,11 +167,11 @@ export function freshRouter(data) {
 }
 
 NProgress.configure({ showSpinner: false })
-//开始进度条
+//start progress bar
 export const progressStart = () => {
   NProgress.start()
 }
-//关闭进度条
+//close progress bar
 export const progressClose = () => {
   NProgress.done()
 }

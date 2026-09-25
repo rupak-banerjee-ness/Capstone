@@ -24,7 +24,7 @@ import {ref} from "vue";
 const props = defineProps({
   placeholder: {
     require: true,
-    default: '请输入你的需求',
+    default: 'Please enter your request',
     type: String
   }
 })

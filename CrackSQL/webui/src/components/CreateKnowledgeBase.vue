@@ -134,7 +134,7 @@ const getEmbeddingModelList = async () => {
   }
 }
 
-// 获取支持的数据库类型列表
+// Get list of supported database types
 const getSupportDatabaseOptions = async () => {
   const res = await supportDatabaseReq()
   databaseOptions.value = res.data

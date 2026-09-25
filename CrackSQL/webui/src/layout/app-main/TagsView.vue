@@ -77,11 +77,11 @@ onMounted(() => {
   addTags()
 })
 
-//判断当前点击的item项，是不是当前显示的路由项，如果是则高亮
+//judge whether the currently clicked item is the currently displayed route, highlight if so
 const isActive = (param) => {
   return route.path === param.path
 }
-//当路由设置meta.affix=true,关闭按钮消失
+//when route sets meta.affix=true, the close button disappears
 const isAffix = (tag) => {
   return tag.meta && tag.meta.affix
 }
@@ -108,11 +108,11 @@ const filterAffixTags = (routes, basePath = '/') => {
   return tags
 }
 
-//初始
+//initialize
 const tagsViewStore = useTagsViewStore()
 const { allRoutes } = useBasicStore()
 const initTags = () => {
-  //过滤affix=true的tags数组并赋值给state.affixTags，挂载到页面上
+  //filter the tags array with affix=true and assign to state.affixTags, mounted on the page
   const affixTags = (state.affixTags = filterAffixTags(allRoutes))
   for (const tag of affixTags) {
     // Must have tag name
@@ -128,9 +128,9 @@ const addTags = () => {
   return false
 }
 
-/*右键菜单部分*/
+/* right-click menu section */
 const vm = getCurrentInstance()?.proxy
-//右键打开菜单
+//open menu on right-click
 const openMenu = (tag, e) => {
   const menuMinWidth = 105
   const offsetLeft = vm?.$el.getBoundingClientRect().left // container margin left
@@ -150,7 +150,7 @@ const openMenu = (tag, e) => {
 
 const basicStore = useBasicStore()
 
-//关闭当前标签
+//close the current tab
 const closeSelectedTag = (view) => {
   tagsViewStore.delVisitedView(view).then((visitedViews) => {
     if (isActive(view)) {
@@ -169,7 +169,7 @@ const closeSelectedTag = (view) => {
   })
 }
 
-//刷新标签
+//refresh tab
 const refreshSelectedTag = (view) => {
   const { fullPath } = view
   nextTick(() => {
@@ -179,16 +179,16 @@ const refreshSelectedTag = (view) => {
   })
 }
 
-//右键关闭菜单
+//close menu on right-click
 const closeMenu = () => {
   state.visible = false
 }
-//关闭其他标签
+//close other tabs
 const closeOthersTags = () => {
   router.push(state.selectedTag)
   tagsViewStore.delOthersVisitedViews(state.selectedTag)
 }
-//关闭所有标签
+//close all tabs
 const closeAllTags = (view) => {
   tagsViewStore.delAllVisitedViews().then((visitedViews) => {
     if (state.affixTags.some((tag) => tag.path === view.path)) {
@@ -197,9 +197,9 @@ const closeAllTags = (view) => {
     toLastView(visitedViews, view)
   })
 }
-//跳转最后一个标签
+//navigate to the last tab
 const toLastView = (visitedViews, view) => {
-  //visitedViews.at(-1)获取数组最后一个元素
+  //visitedViews.at(-1) gets the last element of the array
   const latestView = visitedViews.at(-1)
   if (latestView) {
     router.push(latestView.fullPath)
@@ -218,7 +218,7 @@ const { visible, top, left, selectedTag } = toRefs(state)
 </script>
 
 <style lang="scss" scoped>
-//三角形汽包
+//triangle bubble
 .triangle {
   position: relative;
   width: 0;

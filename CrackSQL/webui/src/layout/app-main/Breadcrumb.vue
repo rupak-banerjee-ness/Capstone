@@ -1,8 +1,8 @@
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
-    <!--  mainNeedAnimation：控制该面包屑是否需要动画  -->
+    <!--  mainNeedAnimation: whether this breadcrumb needs animation  -->
     <transition-group v-if="settings.mainNeedAnimation" name="breadcrumb">
-      <!--  根据过滤后的数组生成面包屑  -->
+      <!--  generate breadcrumb from the filtered array  -->
       <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
         <span v-if="item.redirect === 'noRedirect' || index === levelList.length - 1" class="no-redirect">
           {{ $t(item.meta?.title) }}
@@ -35,17 +35,17 @@ const route = useRoute()
 const getBreadcrumb = () => {
   // only show routes with has  meta.title
   let matched: RouterTypes = route.matched.filter((item) => item.meta?.title)
-  //如果首页Dashboard,如果没有，添加Dashboard路由到第一个路由
+  // if homepage Dashboard is missing, add the Dashboard route as the first route
   const isHasDashboard = matched[0]?.name?.toLocaleLowerCase() === 'Dashboard'.toLocaleLowerCase()
   if (!isHasDashboard) {
     matched = [{ path: '/dashboard', meta: { title: 'Dashboard' } }].concat(matched)
   }
-  //过滤面包屑显示的数组
+  //filter the array shown in the breadcrumb
   levelList.value = matched.filter((item) => item.meta && item.meta.title && item.meta.breadcrumb !== false)
 }
 
-//页面跳转处理
-//compile函数将返回一个用于将参数转换为有效路径的函数：
+//page navigation handling
+//the compile function returns a function used to convert params into a valid path:
 //const  toPath =  compile ( "/user/:id" ,  {  encode : encodeURIComponent  } ) ;
 //toPath ( {  id : 123  } ) ; //=> "/user/123"
 const pathCompile = (path) => {

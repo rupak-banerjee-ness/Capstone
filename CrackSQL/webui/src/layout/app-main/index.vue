@@ -30,7 +30,7 @@ const basicStore = useBasicStore()
 watch(
     () => route.name,
     () => {
-      //缓存组处理
+      // cache group handling
       //first judge cacheGroup and then remove
       if (cacheGroup.length) {
         if (!cacheGroup.includes(route.name)) {
@@ -46,7 +46,7 @@ watch(
           basicStore.addCachedView(fItem)
         })
       }
-      //二级路由处理
+      //second-level route handling
       if (oldRoute?.name) {
         if (oldRoute.meta?.leaveRmCachePage && oldRoute.meta?.cachePage) {
           basicStore.delCachedView(oldRoute.name)
